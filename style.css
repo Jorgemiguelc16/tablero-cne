@@ -247,3 +247,19 @@ input.inv,select.inv{border-color:var(--bad);background:#fff6f5}
 select.fsel{width:auto;min-width:140px;padding:4px 6px;font-size:12px;font-family:var(--f-body)}
 tr.fix td{background:#eef3f9!important}
 .avatar.foto{width:72px;height:72px;object-fit:cover;border:2px solid var(--navy);padding:0;background:var(--padel2)}
+/* v1.3 · Vistas de resultados, proyectos y herramientas */
+.num:empty{display:none}
+.vtabs{display:flex;flex-wrap:wrap;gap:4px;background:var(--panel);border:1px solid var(--line);padding:6px}
+.vtab{flex:none;background:transparent;border:1px solid transparent;padding:7px 13px;font-size:13px;font-weight:500;color:var(--muted);position:relative;white-space:nowrap}
+.vtab:hover{background:var(--panel2);color:var(--navy)}
+.vtab[aria-selected="true"]{background:var(--navy);color:#fff;border-color:var(--navy)}
+.vtab.bad::after,.vtab.warn::after{content:"";position:absolute;top:5px;right:4px;width:7px;height:7px;border-radius:50%;background:var(--bad)}
+.vtab.warn::after{background:#c98a12}
+.vpanel{display:flex;flex-direction:column;gap:18px;min-width:0}
+.proj-bar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px}
+.acts-row{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+#projList td{vertical-align:top}
+.tools{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:18px;align-items:start}
+.tool .body{display:flex;flex-direction:column;gap:10px}
+.tool dl.spec{border-top:1px solid var(--line2);padding-top:10px;margin-top:4px}
+.tool dl.spec dd{white-space:normal}
