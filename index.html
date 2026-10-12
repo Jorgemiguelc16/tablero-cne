@@ -4,6 +4,17 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>JMG - ELECTRIC</title>
+<meta name="description" content="Plataforma gratuita para calcular instalaciones eléctricas de viviendas unifamiliares y multifamiliares según el CNE-Utilización, RNE EM.010 y Norma DGE: máxima demanda, conductores, protecciones, unifilar, metrado y memoria en Excel.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="JMG - ELECTRIC">
+<meta property="og:title" content="JMG - ELECTRIC · Cálculo de instalaciones eléctricas en viviendas">
+<meta property="og:description" content="Máxima demanda, conductores, protecciones, diagrama unifilar, metrado y memoria de cálculo en Excel según el CNE-Utilización, RNE EM.010 y Norma DGE.">
+<meta property="og:url" content="https://jorgemiguelc16.github.io/tablero-cne/">
+<meta property="og:image" content="https://jorgemiguelc16.github.io/tablero-cne/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="es_PE">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='8' fill='%2314304f'/%3E%3Ctext x='32' y='37' text-anchor='middle' font-family='Georgia,serif' font-weight='700' font-size='23' fill='%23ffffff'%3EJMG%3C/text%3E%3Crect x='13' y='46' width='38' height='4' fill='%239a5a23'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:ital,wght@0,500;0,600;1,500&display=swap">
@@ -86,6 +97,7 @@
               <div class="proj-g">
                 <div class="pbox"><h3>Nuevo proyecto</h3><p>Inicie un cálculo nuevo con valores de partida típicos.</p><div class="acts"><button class="btn" type="button" data-new="uni">Unifamiliar</button><button class="btn" type="button" data-new="multi">Multifamiliar</button></div></div>
                 <div class="pbox"><h3>Abrir proyecto</h3><p>Cargue un proyecto guardado anteriormente (archivo .json).</p><div class="acts"><button class="btn sec" type="button" data-open>Abrir archivo</button></div></div>
+                <div class="pbox"><h3>Ver un ejemplo</h3><p>Abra un proyecto de muestra ya calculado para conocer la plataforma.</p><div class="acts"><button class="btn sec" type="button" data-ej="uni">Ejemplo unifamiliar</button><button class="btn sec" type="button" data-ej="multi">Ejemplo multifamiliar</button></div></div>
                 <div class="pbox" id="lastBox"><h3>Continuar último proyecto</h3><p id="lastTxt"></p><div class="acts"><button class="btn sec" type="button" data-go="calculo">Continuar</button></div></div>
               </div>
               <p class="hint" id="openMsg" style="margin-top:10px"></p>
@@ -136,7 +148,7 @@
         <div class="projline" id="projline"></div>
         <div class="exp">
           <button class="btn" id="btnXlsx" type="button"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 2v8M4.5 6.5 8 10l3.5-3.5M2.5 13.5h11"/></svg>Exportar memoria a Excel</button>
-          <div class="ebtns"><button class="btn sec sm" type="button" id="btnSave">Guardar proyecto</button><button class="btn sec sm" type="button" data-open>Abrir proyecto</button></div>
+          <div class="ebtns"><button class="btn sec sm" type="button" id="btnSave">Guardar proyecto</button><button class="btn sec sm" type="button" data-open>Abrir proyecto</button><button class="btn sec sm" type="button" id="btnPrint">Imprimir / PDF</button></div>
           <div class="exp-msg" id="expMsg">Memoria, Cálculos, Unifilar, Metrado y Anexos con fórmulas vinculadas.</div>
         </div>
       </div>
@@ -223,7 +235,7 @@
         <div class="card tool"><h2>Caída de tensión<span class="ref">050-102</span></h2><div class="body">
           <div class="row"><label>Sistema<select id="h1_sis" class="h-sis"></select></label><label>Corriente (A)<input type="number" id="h1_I" min="0" step="any" value="20"></label></div>
           <div class="row"><label>Longitud (m)<input type="number" id="h1_L" min="0" step="any" value="30"></label><label>Sección (mm²)<select id="h1_S" class="h-secc"></select></label></div>
-          <label>Resistividad del cobre<select id="h1_rho"><option value="0.0209">70 °C · PVC (0,0209)</option><option value="0.0223">90 °C · XLPE (0,0223)</option><option value="0.0175">20 °C (0,0175)</option></select></label>
+          <label>Resistividad del cobre<select id="h1_rho"><option value="0.0209">70 °C · PVC (0.0209)</option><option value="0.0223">90 °C · XLPE (0.0223)</option><option value="0.0175">20 °C (0.0175)</option></select></label>
           <dl class="spec" id="h1_out"></dl></div></div>
         <div class="card tool"><h2>Conductor e interruptor<span class="ref">Tabla 2 · 5A · 5C</span></h2><div class="body">
           <div class="row"><label>Corriente de la carga (A)<input type="number" id="h2_I" min="0" step="any" value="25"></label><label>Conductores cargados<select id="h2_nc"><option value="2">2 (monofásico)</option><option value="3">3 (trifásico)</option></select></label></div>
@@ -238,7 +250,7 @@
           <dl class="spec" id="h3_out"></dl></div></div>
         <div class="card tool"><h2>Puesta a tierra con varias varillas<span class="ref">060-702 · 060-712</span></h2><div class="body">
           <div class="row"><label>Resistividad del suelo (Ω·m)<input type="number" id="h4_rho" min="1" step="any" value="100"></label><label>Número de varillas<input type="number" id="h4_n" min="1" max="24" step="1" value="2"></label></div>
-          <div class="row"><label>Longitud de varilla (m)<input type="number" id="h4_L" min="0.5" step="0.1" value="2.4"></label><label>Diámetro<select id="h4_d"><option value="0.0127">1/2" (12,7 mm)</option><option value="0.0159" selected>5/8" (15,9 mm)</option><option value="0.0191">3/4" (19,1 mm)</option></select></label></div>
+          <div class="row"><label>Longitud de varilla (m)<input type="number" id="h4_L" min="0.5" step="0.1" value="2.4"></label><label>Diámetro<select id="h4_d"><option value="0.0127">1/2" (12.7 mm)</option><option value="0.0159" selected>5/8" (15.9 mm)</option><option value="0.0191">3/4" (19.1 mm)</option></select></label></div>
           <label>Factor de tratamiento del suelo<input type="number" id="h4_fr" min="0.1" max="1" step="0.05" value="1"></label>
           <dl class="spec" id="h4_out"></dl></div></div>
         <div class="card tool"><h2>Conversión de potencia y corriente</h2><div class="body">
@@ -315,6 +327,7 @@
     <section id="tab-ajustes" class="tabpanel" role="tabpanel" hidden>
       <div class="panel-head"><h2>Ajustes</h2><p>Parámetros generales del cálculo. Los cambios se aplican de inmediato a los resultados y a la memoria exportada.</p></div>
       <div class="settings" data-calc>
+        <div class="scol">
         <fieldset><legend>Cargas y circuitos</legend><div class="fs">
           <div class="row">
             <label>Factor de potencia<input type="number" id="fp" step="0.01" min="0.5" max="1" value="0.9"></label>
@@ -328,6 +341,17 @@
             <select id="reserva"><option value="0">Ninguno</option><option value="1">1</option><option value="2" selected>2 (Regla 050-108)</option><option value="3">3</option><option value="4">4</option></select></label>
           <p class="hint">Máximo 12 salidas por circuito (Regla 070-3000). W por salida y por tomacorriente se usan en el modo multifamiliar.</p>
         </div></fieldset>
+        <fieldset><legend>Caída de tensión <small>050-102</small></legend><div class="fs">
+          <label>ΔV asignada al alimentador general (multifamiliar)
+            <select id="dvGen"><option value="1">1.0 %</option><option value="1.5" selected>1.5 %</option><option value="2">2.0 %</option></select></label>
+          <p class="hint">Límites del código: 2.5 % en alimentadores, 2.5 % en circuitos derivados y 4 % total hasta la salida más alejada.</p>
+        </div></fieldset>
+        <fieldset><legend>Datos guardados</legend><div class="fs">
+          <p class="hint">Los datos se guardan automáticamente en este navegador. Restablecer no borra los proyectos de la pestaña Proyectos.</p>
+          <div class="confirm" id="resetBox"></div>
+        </div></fieldset>
+        </div>
+        <div class="scol">
         <fieldset><legend>Conductores <small>Tabla 2 · 5A · 5C</small></legend><div class="fs">
           <label>Método de instalación (Tabla 3)
             <select id="met"><option value="A1" selected>A1 · Conductores en tubo empotrado en pared</option><option value="B1">B1 · Conductores en tubo sobre pared</option><option value="B2">B2 · Cable multipolar en tubo sobre pared</option><option value="C">C · Cable sobre pared</option></select></label>
@@ -340,26 +364,30 @@
               <select id="nag"><option selected>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option></select></label>
           </div>
           <label>Resistividad del cobre para caída de tensión
-            <select id="rhoMode"><option value="op" selected>A temperatura de operación (PVC 70 °C: 0,0209 · XLPE 90 °C: 0,0223)</option><option value="20">A 20 °C (0,0175 Ω·mm²/m)</option></select></label>
+            <select id="rhoMode"><option value="op" selected>A temperatura de operación (PVC 70 °C: 0.0209 · XLPE 90 °C: 0.0223)</option><option value="20">A 20 °C (0.0175 Ω·mm²/m)</option></select></label>
           <label>Designación comercial del conductor<input type="text" id="desig" list="desigList" value="NH-80"></label>
           <datalist id="desigList"><option value="NH-80"><option value="TW-80"><option value="THW-90"><option value="LSOHX-90"><option value="N2XOH"></datalist>
           <div class="row">
             <label>Sección mín. derivados
-              <select id="sminD"><option value="1.5">1,5 mm²</option><option value="2.5" selected>2,5 mm²</option><option value="4">4 mm²</option></select></label>
+              <select id="sminD"><option value="1.5">1.5 mm²</option><option value="2.5" selected>2.5 mm²</option><option value="4">4 mm²</option></select></label>
             <label>Sección mín. alimentadores
-              <select id="sminA"><option value="2.5">2,5 mm²</option><option value="4" selected>4 mm²</option><option value="6">6 mm²</option><option value="10">10 mm²</option></select></label>
+              <select id="sminA"><option value="2.5">2.5 mm²</option><option value="4" selected>4 mm²</option><option value="6">6 mm²</option><option value="10">10 mm²</option></select></label>
           </div>
         </div></fieldset>
+        <fieldset><legend>Metrado</legend><div class="fs">
+          <div class="row">
+            <label>Desperdicio en conductores y tubos (%)<input type="number" id="pDesp" min="0" max="30" step="1" value="5"></label>
+            <label>Bajada por salida (m)<input type="number" id="bajada" min="0" max="5" step="0.1" value="1"></label>
+          </div>
+          <p class="hint">El metrado de conductores y tubos es referencial: usa la longitud hasta la salida más alejada más una bajada por cada salida.</p>
+        </div></fieldset>
+        </div>
+        <div class="scol">
         <fieldset><legend>Protección <small>150-400</small></legend><div class="fs">
           <label>Esquema de interruptores diferenciales
             <select id="idMode"><option value="grupo" selected>Un diferencial por cada grupo de 3 circuitos (150-400(8))</option><option value="circuito">Un diferencial por circuito (150-400(9))</option></select></label>
           <label>Corriente de cortocircuito en el punto de entrega (kA)<input type="number" id="iccE" step="0.5" min="0.5" value="10"></label>
           <p class="hint">Valor que proporciona la concesionaria (Norma DGE, 110.F). Si no se conoce, se adopta un valor conservador. Los circuitos de motores se protegen con interruptores de curva D (Regla 160-200).</p>
-        </div></fieldset>
-        <fieldset><legend>Caída de tensión <small>050-102</small></legend><div class="fs">
-          <label>ΔV asignada al alimentador general (multifamiliar)
-            <select id="dvGen"><option value="1">1,0 %</option><option value="1.5" selected>1,5 %</option><option value="2">2,0 %</option></select></label>
-          <p class="hint">Límites del código: 2,5 % en alimentadores, 2,5 % en circuitos derivados y 4 % total hasta la salida más alejada.</p>
         </div></fieldset>
         <fieldset><legend>Puesta a tierra <small>060-702 · 060-712</small></legend><div class="fs">
           <div class="row">
@@ -369,21 +397,11 @@
           <div class="row">
             <label>Longitud de varilla (m)<input type="number" id="Lv" step="0.1" min="0.5" value="2.4"></label>
             <label>Diámetro de varilla
-              <select id="dv"><option value="0.0127">1/2" (12,7 mm)</option><option value="0.0159" selected>5/8" (15,9 mm)</option><option value="0.0191">3/4" (19,1 mm)</option></select></label>
+              <select id="dv"><option value="0.0127">1/2" (12.7 mm)</option><option value="0.0159" selected>5/8" (15.9 mm)</option><option value="0.0191">3/4" (19.1 mm)</option></select></label>
           </div>
-          <p class="hint">Varilla de longitud no menor de 2 m (060-702). Factor 1 sin tratamiento; 0,3–0,6 con bentonita o gel.</p>
+          <p class="hint">Varilla de longitud no menor de 2 m (060-702). Factor 1 sin tratamiento; 0.3–0.6 con bentonita o gel.</p>
         </div></fieldset>
-        <fieldset><legend>Metrado</legend><div class="fs">
-          <div class="row">
-            <label>Desperdicio en conductores y tubos (%)<input type="number" id="pDesp" min="0" max="30" step="1" value="5"></label>
-            <label>Bajada por salida (m)<input type="number" id="bajada" min="0" max="5" step="0.1" value="1"></label>
-          </div>
-          <p class="hint">El metrado de conductores y tubos es referencial: usa la longitud hasta la salida más alejada más una bajada por cada salida.</p>
-        </div></fieldset>
-        <fieldset><legend>Datos guardados</legend><div class="fs">
-          <p class="hint">Los datos se guardan automáticamente en este navegador. Restablecer no borra los proyectos de la pestaña Proyectos.</p>
-          <div class="confirm" id="resetBox"></div>
-        </div></fieldset>
+        </div>
       </div>
     </section>
 
@@ -413,7 +431,7 @@ const TUBOS=[[20,"3/4\"",19],[25,"1\"",24],[35,"1 1/4\"",32],[40,"1 1/2\"",38],[
 const TIPOS={calentador:"Calentador de agua / ducha (100 %)",cocina:"Cocina eléctrica",aire:"Aire acondicionado (100 %)",motor:"Motor (bomba, etc.)",otra:"Otra carga"};
 const TSERV={alum:"Alumbrado / tomacorrientes",motor:"Motor",otra:"Otra carga"};
 const RHO_CU=0.0175, FD=1.25, DV_ALIM=2.5, DV_DER=2.5, DV_TOT=4, IMIN_UNI=40, IMIN_DPTO=25;
-const SQ3=Math.sqrt(3), VERSION="v1.4";
+const SQ3=Math.sqrt(3), VERSION="v1.5";
 const SIST={mono220:{tri:false,V:220,kI:1,K:2,n:2,txt:"1φ 220 V",nom:"Monofásico 220 V",fases:["—"]},
             tri220:{tri:true,V:220,kI:SQ3,K:SQ3,n:3,txt:"3φ 220 V",nom:"Trifásico 220 V",fases:["R-S","S-T","T-R"]},
             tri380:{tri:true,V:380,kI:SQ3,K:SQ3,n:4,txt:"3φ 380/220 V",nom:"Trifásico 380/220 V",fases:["R","S","T"]}};
@@ -428,7 +446,7 @@ const NORMAS=[
   ["RM 037-2006-MEM/DM","Código Nacional de Electricidad – Utilización","Norma obligatoria para las instalaciones eléctricas en edificaciones desde la acometida hasta los puntos de utilización.","Base de los cálculos de cargas, conductores, protección, caída de tensión y puesta a tierra."],
   ["CNE-U · 050-110 · 050-200","Áreas y viviendas unifamiliares","Área de vivienda con 75 % del sótano; carga básica de 2 500 W hasta 90 m² más 1 000 W por cada 90 m² adicionales; corriente mínima de 40 A.","Máxima demanda y alimentador en el modo unifamiliar."],
   ["CNE-U · 050-202","Edificios de departamentos","Carga básica de 1 500 W hasta 45 m², 1 000 W por los segundos 45 m² y 1 000 W por cada 90 m² adicionales; mínimo 25 A. Factores del edificio 100 / 65 / 40 / 30 / 25 % y 75 % para cargas comunes.","Máxima demanda por departamento y del edificio."],
-  ["CNE-U · 050-102 · 050-108","Caída de tensión y espacios en tablero","Caída máxima de 2,5 % en alimentadores y en derivados, y 4 % total. Espacio para dos dispositivos de reserva.","Selección de secciones y espacios de reserva."],
+  ["CNE-U · 050-102 · 050-108","Caída de tensión y espacios en tablero","Caída máxima de 2.5 % en alimentadores y en derivados, y 4 % total. Espacio para dos dispositivos de reserva.","Selección de secciones y espacios de reserva."],
   ["CNE-U · Tabla 2 · 5A · 5C","Capacidad de corriente de conductores","Ampacidad de conductores de cobre según método de instalación de la NTP 370.301, con correcciones por temperatura y agrupamiento.","Selección de conductores en alimentadores y circuitos derivados."],
   ["CNE-U · 150-400 · 070-3000","Tableros en vivienda y salidas por circuito","Interruptor general, diferencial de 30 mA (por grupos de tres circuitos o por circuito) y máximo 12 salidas por circuito.","Esquema de protección y distribución de circuitos."],
   ["CNE-U · 060-702 · 060-712 · Tablas 16 y 17","Puesta a tierra","Varilla de longitud mínima 2 m; resistencia no mayor de 25 Ω; conductores de protección y de puesta a tierra.","Resistencia del electrodo y secciones de tierra."],
@@ -436,19 +454,19 @@ const NORMAS=[
   ["Norma DGE (2004)","Conexiones eléctricas en BT en zonas de concesión","Sistemas 220 V y 380/220 V, tipos de conexión, diferenciales de 30 mA y poder de corte de los interruptores.","Tipo de conexión, tensiones normalizadas y poder de corte."],
   ["IEC 60898-1 · IEC 61008-1","Interruptores para uso doméstico","Interruptores termomagnéticos y diferenciales para instalaciones domésticas y análogas.","Corrientes nominales y poderes de corte normalizados."]];
 const CRITERIOS=[
-  "La corriente de diseño es 1,25 veces la corriente nominal y no menor que la mínima del código (40 A en vivienda unifamiliar, 25 A por departamento).",
+  "La corriente de diseño es 1.25 veces la corriente nominal y no menor que la mínima del código (40 A en vivienda unifamiliar, 25 A por departamento).",
   "El interruptor se elige igual o mayor que la corriente de diseño y menor o igual que la ampacidad corregida del conductor.",
   "La ampacidad se toma de la Tabla 2 según el método de instalación y se corrige por temperatura (Tabla 5A) y por agrupamiento (Tabla 5C).",
-  "La sección se incrementa hasta cumplir la ampacidad y la caída de tensión: 2,5 % en alimentadores, 2,5 % en derivados y 4 % total.",
+  "La sección se incrementa hasta cumplir la ampacidad y la caída de tensión: 2.5 % en alimentadores, 2.5 % en derivados y 4 % total.",
   "La caída de tensión se calcula con la resistividad del cobre a la temperatura de operación del conductor (70 °C en PVC, 90 °C en XLPE); el cortocircuito, con la resistividad a 20 °C, que da la corriente más alta.",
   "Los circuitos de motores tienen conductores de capacidad no menor al 125 % de la corriente a plena carga (Regla 160-106) y se protegen con interruptores de curva D por la corriente de arranque (Regla 160-200, Tabla 29).",
   "En edificios, las unidades se ordenan de mayor a menor carga para aplicar los factores 100 / 65 / 40 / 30 / 25 %; el aire acondicionado se suma al 100 % y las cargas comunes al 75 %.",
   "En «otras cargas mayores de 1 500 W» de la Regla 050-202, sin cocina, se adopta el mismo criterio de la Regla 050-200: 100 % hasta 6 kW y 25 % del exceso.",
   "El cortocircuito se estima desde la corriente del punto de entrega sumando la resistencia de los conductores; el poder de corte se elige igual o mayor.",
   "El balance de fases busca el reparto de cargas monofásicas con el menor desbalance posible; el proyectista puede fijar la fase de cualquier carga. Se recomienda un desbalance no mayor de 10 % como criterio de diseño."];
-const GLOSARIO=[["MD","Máxima demanda: potencia que se espera usar simultáneamente, calculada con las Reglas 050-200 y 050-202."],["ITM","Interruptor termomagnético: protege el conductor contra sobrecargas y cortocircuitos. Curva C para usos generales, D para motores."],["ID","Interruptor diferencial de 30 mA: protege a las personas contra contactos indirectos (Regla 150-400)."],["PdC","Poder de corte: máxima corriente de cortocircuito que el interruptor puede interrumpir sin dañarse."],["Icc","Corriente de cortocircuito disponible en un punto de la instalación. En el punto de entrega la proporciona la concesionaria."],["ΔV","Caída de tensión: máximo 2,5 % en alimentadores, 2,5 % en derivados y 4 % total (Regla 050-102)."],["Iz","Capacidad de corriente del conductor (Tabla 2), corregida por temperatura (5A) y agrupamiento (5C)."],["Id","Corriente de diseño: 1,25 veces la corriente nominal del circuito."],["PAT","Puesta a tierra: electrodo y conductores que conectan la instalación a tierra; resistencia máxima 25 Ω (Regla 060-712)."],["TG · TD · TSG","Tablero general, tablero de departamento y tablero de servicios generales."],["Metrado","Cuantificación de materiales por partidas, base para el presupuesto de la obra."]];
+const GLOSARIO=[["MD","Máxima demanda: potencia que se espera usar simultáneamente, calculada con las Reglas 050-200 y 050-202."],["ITM","Interruptor termomagnético: protege el conductor contra sobrecargas y cortocircuitos. Curva C para usos generales, D para motores."],["ID","Interruptor diferencial de 30 mA: protege a las personas contra contactos indirectos (Regla 150-400)."],["PdC","Poder de corte: máxima corriente de cortocircuito que el interruptor puede interrumpir sin dañarse."],["Icc","Corriente de cortocircuito disponible en un punto de la instalación. En el punto de entrega la proporciona la concesionaria."],["ΔV","Caída de tensión: máximo 2.5 % en alimentadores, 2.5 % en derivados y 4 % total (Regla 050-102)."],["Iz","Capacidad de corriente del conductor (Tabla 2), corregida por temperatura (5A) y agrupamiento (5C)."],["Id","Corriente de diseño: 1.25 veces la corriente nominal del circuito."],["PAT","Puesta a tierra: electrodo y conductores que conectan la instalación a tierra; resistencia máxima 25 Ω (Regla 060-712)."],["TG · TD · TSG","Tablero general, tablero de departamento y tablero de servicios generales."],["Metrado","Cuantificación de materiales por partidas, base para el presupuesto de la obra."]];
 const FAQ=[["¿Por qué el balance de fases aparece en ámbar?","Porque el desbalance supera el 10 %, criterio de diseño recomendado. Si el mensaje indica que es el mínimo alcanzable, ningún reparto de las cargas lo mejora: divida el circuito más grande o use una carga trifásica."],["¿Qué valor de Icc uso si no lo conozco?","Solicítelo a la concesionaria (Norma DGE, 110.F). Mientras tanto, 10 kA es un valor conservador para zonas urbanas."],["¿El metrado es exacto?","Las protecciones, tableros, cajas y aparatos salen del cálculo. Las longitudes de conductores y tubos son referenciales y deben verificarse con los planos de distribución."],["¿Dónde se guardan mis proyectos?","En este navegador. Para respaldarlos o usarlos en otra computadora, expórtelos desde la pestaña Proyectos e impórtelos en el otro equipo."],["¿Puedo modificar el Excel?","Sí. Las celdas en azul son datos de entrada: al cambiarlas, el libro recalcula los resultados con fórmulas vinculadas."],["¿La memoria reemplaza la firma del ingeniero?","No. Los resultados son de referencia; la responsabilidad del diseño corresponde al ingeniero colegiado que suscribe el expediente (EM.010, Art. 8)."]];
-const NOVEDADES=[["v1.4","Pestañas Guía y Soporte, estado del proyecto en la cabecera y marca JMG Projects & Energy."],["v1.3","Vistas de resultados, metrado en web y Excel, pestañas Proyectos y Herramientas, ícono de la plataforma."],["v1.2","Balance de fases óptimo con fijación manual, guardar y abrir proyectos, circuitos de motores, resistividad a temperatura de operación."],["v1.1","Diagrama unifilar automático en la web y en el Excel."],["v1.0","Cálculo según CNE-Utilización, EM.010 y Norma DGE con memoria de cálculo en Excel."]];
+const NOVEDADES=[["v1.5","Proyectos de ejemplo, impresión de resultados en PDF, unifilar en DXF para AutoCAD y vista previa al compartir. Excel con decimales con punto y textos completos; aviso normativo; Ajustes y Herramientas ordenados."],["v1.4","Pestañas Guía y Soporte, estado del proyecto en la cabecera y marca JMG Projects & Energy."],["v1.3","Vistas de resultados, metrado en web y Excel, pestañas Proyectos y Herramientas, ícono de la plataforma."],["v1.2","Balance de fases óptimo con fijación manual, guardar y abrir proyectos, circuitos de motores, resistividad a temperatura de operación."],["v1.1","Diagrama unifilar automático en la web y en el Excel."],["v1.0","Cálculo según CNE-Utilización, EM.010 y Norma DGE con memoria de cálculo en Excel."]];
 const DOCS=["Certificado de factibilidad de suministro (multifamiliar u otros usos).","Memoria descriptiva: ubicación, áreas libre y techada, proyectista, normativa y criterios técnicos.","Memoria de cálculo: circuitos, iluminación, protecciones, puesta a tierra y otras cargas.","Especificaciones técnicas de materiales y equipos (NTP, IEC).","Planos: esquema unifilar con potencia instalada, demanda máxima, potencia contratada, tensión, capacidad de ruptura y número de fases.","Cuadro de cargas, plano de puesta a tierra y detalles del banco de medidores.","Rótulo con nombre, registro CIP, firma y sello del ingeniero responsable.","Pruebas técnicas al finalizar la obra."];
 
 /* ================= Datos editables (listas) ================= */
@@ -471,7 +489,7 @@ const LISTS={
 const $=id=>document.getElementById(id);
 const num=id=>parseFloat($(id).value)||0;
 const esc=s=>String(s??"").replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;");
-const fmt=(x,d=2)=>Number.isFinite(x)?x.toLocaleString("es-PE",{minimumFractionDigits:d,maximumFractionDigits:d}):"—";
+const fmt=(x,d=2)=>Number.isFinite(x)?x.toLocaleString("es-PE",{minimumFractionDigits:d,maximumFractionDigits:d,useGrouping:false}):"—";
 const radio=n=>document.querySelector(`input[name="${n}"]:checked`)?.value;
 
 function readList(name){ const L=LISTS[name]; L.arr.forEach((it,i)=>L.f.forEach(f=>{const el=$(`${name}_${f.k}_${i}`); if(!el)return; it[f.k]=f.t==="number"?(parseFloat(el.value)||0):(f.k==="fases"?+el.value:el.value.replace(/[<>]/g,""));})); }
@@ -563,10 +581,14 @@ function grupos(list,c,tab,dvUp,feeder){
       out.push(circuito({tab,id:"C-"+(++k),desc:g.desc+(nc>1?` ${i+1}`:""),tipo:g.tipo,n,P:n*g.p,L:g.L,fases:1},c,dvUp,feeder)); } });
   return out;
 }
+// Factor de agrupamiento de varillas en paralelo (separación ≥ longitud de varilla), con interpolación lineal
+const FAGR=[[1,1],[2,1.16],[3,1.29],[4,1.36],[8,1.68],[12,1.8],[16,1.92],[20,2],[24,2.16]];
+function fAgr(n){ if(n<=1) return 1; for(let i=1;i<FAGR.length;i++){ if(n<=FAGR[i][0]){ const [n0,f0]=FAGR[i-1],[n1,f1]=FAGR[i]; return f0+(f1-f0)*(n-n0)/(n1-n0); } } return FAGR[FAGR.length-1][1]; }
 function pozo(p){
   const a=p.dv/2, Rv=p.rho/(2*Math.PI*p.Lv)*(Math.log(4*p.Lv/a)-1), Rt=Rv*p.fr;
-  const nVar=Rt<=25?1:Math.ceil(1.1*Rt/25), Rn=nVar>1?1.1*Rt/nVar:Rt;
-  return {...p,Rv,Rt,ok:Rt<=25,nVar,Rn,okL:p.Lv>=2,okD:p.dv*1000>=13};
+  let nVar=1; while(Rt*fAgr(nVar)/nVar>25&&nVar<60) nVar++;
+  const F=fAgr(nVar), Rn=Rt*F/nVar;
+  return {...p,Rv,Rt,ok:Rt<=25,nVar,F,Rn,okL:p.Lv>=2,okD:p.dv*1000>=13};
 }
 // Cortocircuito aguas abajo de un conductor (estimación conservadora: impedancia de la fuente inductiva + resistencia del cable)
 function iccAbajo(iccUp,s,L,S){ const k=s.tri?SQ3:1, Zup=s.V/(k*iccUp*1000), Rc=(s.tri?1:2)*RHO_CU*L/S; return s.V/(k*Math.hypot(Zup,Rc))/1000; }
@@ -939,6 +961,39 @@ function unifilar(r){
   const svg=`<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" font-family="Arial, Helvetica, sans-serif"><rect width="${W}" height="${H}" fill="#fff"/><rect x="6" y="4" width="${W-12}" height="${H-10}" fill="none" stroke="${NAVY}" stroke-width="1.5"/>${o.join("")}</svg>`;
   return {svg,W,H};
 }
+/* SVG del unifilar → DXF (R12, unidades = px del diagrama; Y invertido) */
+function svgDxf(svgTxt){
+  const doc=new DOMParser().parseFromString(svgTxt,"image/svg+xml"), root=doc.documentElement;
+  const H=parseFloat(root.getAttribute("height"))||0, n=v=>parseFloat(v)||0, Y=y=>(H-y).toFixed(3), X=x=>(+x).toFixed(3);
+  const E=[], add=(...kv)=>{ for(let i=0;i<kv.length;i+=2) E.push(kv[i],kv[i+1]); };
+  const lay=el=>{ const d=el.getAttribute("stroke-dasharray"); if(d) return "RESERVA"; const sw=n(el.getAttribute("stroke-width")); return sw>=3?"BARRAS":"UNIFILAR"; };
+  const linea=(x1,y1,x2,y2,ly)=>add(0,"LINE",8,ly,10,X(x1),20,Y(y1),11,X(x2),21,Y(y2));
+  const enc=t=>Array.from(String(t)).map(ch=>{ const c=ch.codePointAt(0); return c<128?ch:"\\U+"+c.toString(16).toUpperCase().padStart(4,"0"); }).join("");
+  root.querySelectorAll("*").forEach(el=>{
+    const t=el.tagName.toLowerCase();
+    if(t==="line") linea(n(el.getAttribute("x1")),n(el.getAttribute("y1")),n(el.getAttribute("x2")),n(el.getAttribute("y2")),lay(el));
+    else if(t==="rect"){ const x=n(el.getAttribute("x")),y=n(el.getAttribute("y")),w=n(el.getAttribute("width")),h=n(el.getAttribute("height"));
+      if(x===0&&y===0&&!el.getAttribute("stroke")) return; const P=[[x,y],[x+w,y],[x+w,y+h],[x,y+h],[x,y]];
+      for(let i=0;i<4;i++) linea(P[i][0],P[i][1],P[i+1][0],P[i+1][1],el.getAttribute("stroke")?"MARCO":"RELLENOS"); }
+    else if(t==="circle") add(0,"CIRCLE",8,"UNIFILAR",10,X(n(el.getAttribute("cx"))),20,Y(n(el.getAttribute("cy"))),40,n(el.getAttribute("r")).toFixed(3));
+    else if(t==="ellipse"){ const cx=n(el.getAttribute("cx")),cy=n(el.getAttribute("cy")),rx=n(el.getAttribute("rx")),ry=n(el.getAttribute("ry"));
+      for(let i=0;i<32;i++){ const a1=i/32*2*Math.PI,a2=(i+1)/32*2*Math.PI; linea(cx+rx*Math.cos(a1),cy+ry*Math.sin(a1),cx+rx*Math.cos(a2),cy+ry*Math.sin(a2),"UNIFILAR"); } }
+    else if(t==="path"){ const pts=[]; (el.getAttribute("d")||"").replace(/([MLZ])\s*([-\d.]+)?[\s,]*([-\d.]+)?/gi,(m,c,a,b)=>{ if(/z/i.test(c)){ if(pts.length) pts.push(pts[0]); } else pts.push([n(a),n(b)]); return m; });
+      for(let i=0;i+1<pts.length;i++) linea(pts[i][0],pts[i][1],pts[i+1][0],pts[i+1][1],"UNIFILAR"); }
+    else if(t==="text"){ const x=n(el.getAttribute("x")),y=n(el.getAttribute("y")),fs=n(el.getAttribute("font-size"))||9, an=el.getAttribute("text-anchor");
+      const tr=(el.getAttribute("transform")||"").match(/rotate\(([-\d.]+)/), rot=tr?-n(tr[1]):0, j=an==="middle"?1:an==="end"?2:0;
+      add(0,"TEXT",8,"TEXTOS",10,X(x),20,Y(y),40,(fs*0.72).toFixed(3),1,enc(el.textContent));
+      if(rot) add(50,rot.toFixed(2)); if(j) add(72,j,11,X(x),21,Y(y)); }
+  });
+  const capas=[["UNIFILAR",7],["BARRAS",30],["RESERVA",8],["MARCO",5],["RELLENOS",9],["TEXTOS",7]];
+  const head=[0,"SECTION",2,"HEADER",9,"$ACADVER",1,"AC1009",9,"$DWGCODEPAGE",3,"ANSI_1252",9,"$INSBASE",10,"0.0",20,"0.0",30,"0.0",0,"ENDSEC",
+    0,"SECTION",2,"TABLES",0,"TABLE",2,"LTYPE",70,2,0,"LTYPE",2,"CONTINUOUS",70,0,3,"Solid line",72,65,73,0,40,"0.0",0,"LTYPE",2,"DASHED",70,0,3,"__ __ __",72,65,73,2,40,"7.0",49,"4.0",49,"-3.0",0,"ENDTAB",
+    0,"TABLE",2,"LAYER",70,capas.length,...capas.flatMap(([nm,col])=>[0,"LAYER",2,nm,70,0,62,col,6,nm==="RESERVA"?"DASHED":"CONTINUOUS"]),0,"ENDTAB",0,"ENDSEC",
+    0,"SECTION",2,"ENTITIES"];
+  const all=[...head,...E,0,"ENDSEC",0,"EOF"]; let out="";
+  for(let i=0;i<all.length;i+=2) out+=String(all[i]).padStart(3," ")+"\r\n"+all[i+1]+"\r\n";
+  return out;
+}
 function svgPng(svg,scale=2){
   return new Promise((ok,ko)=>{ const img=new Image();
     img.onload=()=>{ try{ const cv=document.createElement("canvas"); cv.width=img.width*scale; cv.height=img.height*scale; const g=cv.getContext("2d"); g.fillStyle="#fff"; g.fillRect(0,0,cv.width,cv.height); g.drawImage(img,0,0,cv.width,cv.height); ok(cv.toDataURL("image/png")); }catch(e){ ko(e); } };
@@ -946,9 +1001,10 @@ function svgPng(svg,scale=2){
 }
 function cardUnifilar(r,nro){
   const u=unifilar(r);
-  return `<section class="card"><h2><span><span class="num">${nro}</span>Diagrama unifilar</span><span class="ref"><button type="button" class="btn sec sm" data-dl="svg">Descargar SVG</button><button type="button" class="btn sec sm" data-dl="png">Descargar PNG</button></span></h2>
+  return `<section class="card"><h2><span><span class="num">${nro}</span>Diagrama unifilar</span><span class="ref"><button type="button" class="btn sec sm" data-dl="svg">Descargar SVG</button><button type="button" class="btn sec sm" data-dl="png">Descargar PNG</button><button type="button" class="btn sec sm" data-dl="dxf" title="Para AutoCAD">Descargar DXF</button></span></h2>
   <div class="unif">${u.svg}</div><div class="body"><p class="hint">Generado automáticamente a partir del cálculo: protecciones, conductores, diferenciales, puesta a tierra y cuadro de cargas exigido por la EM.010 (Art. 8). Se incluye también en la memoria de Excel.</p></div></section>`;
 }
+let PRINT=null;
 function render(r){
   const k=[]; const maxDV=Math.max(...r.alims.map(a=>a.dvAc),...r.circ.map(c=>c.dVt)), a0=r.alims[0];
   if(r.mode==="uni") k.push(["Potencia instalada",fmt(r.CI/1000,2),"kW","Salidas y equipos"],["Máxima demanda",fmt(r.md.MD/1000,2),"kW","Regla 050-200"],["Alimentador",a0.S,"mm²",`${fmt(a0.I,1)} A · ${a0.s.txt}`],["ITM general",a0.itm??"—","A",`${a0.s.tri?3:2} polos · ${a0.pdc} kA`]);
@@ -992,9 +1048,15 @@ function render(r){
   const st={alims:r.alims.every(a=>a.ok)?"":"bad",cuadro:r.circ.every(q=>q.ok)?"":"bad",balance:r.bal&&r.bal.desb>10?"warn":"",
     verif:A.some(x=>x[0]===false)?"bad":A.some(x=>x[0]==="warn")?"warn":""};
   if(!S[VIEW]) VIEW="resumen";
+  const kp=html;
+  PRINT=()=>{ const P=r.c.proj, f=new Date().toLocaleDateString("es-PE",{day:"2-digit",month:"long",year:"numeric"});
+    return `<header class="pr-head"><div class="pr-brand"><b>JMG - ELECTRIC</b><span>Resultados de cálculo · ${r.mode==="multi"?"Vivienda multifamiliar":"Vivienda unifamiliar"}</span></div>
+    <dl class="pr-info"><dt>Proyecto</dt><dd>${esc(P.nombre||"—")}</dd><dt>Propietario</dt><dd>${esc(P.prop||"—")}</dd><dt>Ubicación</dt><dd>${esc(P.ubic||"—")}</dd><dt>Proyectista</dt><dd>${esc(P.proy||"—")}</dd><dt>Normativa</dt><dd>CNE-Utilización · RNE EM.010 · Norma DGE</dd><dt>Fecha</dt><dd>${f} · ${VERSION}</dd></dl></header>
+    ${kp}${VORDEN.filter(k=>S[k]&&k!=="verif").map(k=>`<div class="pr-sec"><h2 class="pr-h">${VLBL[k]}</h2>${S[k]()}</div>`).join("")}
+    <p class="aviso-norma">Cálculos conforme al CNE-Utilización, RNE EM.010 y Normas DGE vigentes. Como en todo proyecto eléctrico, los resultados deben ser verificados por el profesional responsable antes de su ejecución.</p>`; };
   html+=`<nav class="vtabs" role="tablist" aria-label="Resultados">${VORDEN.filter(k=>S[k]).map(k=>`<button type="button" role="tab" class="vtab${st[k]?" "+st[k]:""}" data-view="${k}" aria-selected="${k===VIEW}">${VLBL[k]}</button>`).join("")}</nav>`;
   html+=`<div class="vpanel">${S[VIEW]()}</div>`;
-    html+=`<p class="aviso-norma">Cálculos conforme al CNE-Utilización, RNE EM.010 y Normas DGE vigentes. Como en todo proyecto eléctrico, los resultados deben ser verificados por el profesional responsable antes de su ejecución.</p>`;
+  html+=`<p class="aviso-norma">Cálculos conforme al CNE-Utilización, RNE EM.010 y Normas DGE vigentes. Como en todo proyecto eléctrico, los resultados deben ser verificados por el profesional responsable antes de su ejecución.</p>`;
   $("results").innerHTML=html;
 }
 function setMode(m){
@@ -1009,7 +1071,7 @@ function setTab(t){
   document.querySelectorAll(".tab").forEach(b=>b.setAttribute("aria-selected",b.dataset.tab===t));
   document.querySelectorAll(".tabpanel").forEach(p=>p.hidden=p.id!=="tab-"+t);
   try{ localStorage.setItem("jmg-electric-tab",t); }catch(e){}
-  if(t==="inicio") refreshLast();
+  if(t==="inicio"){ refreshLast(); requestAnimationFrame(fijarLado); }
   if(t==="proy") renderProy();
   if(t==="herr") herr();
   if(t==="soporte") refrSoporte();
@@ -1023,7 +1085,7 @@ function validar(){
   const E=[], v=id=>parseFloat($(id).value);
   document.querySelectorAll(".inv").forEach(e=>e.classList.remove("inv"));
   const chk=(id,ok,msg)=>{ if(ok) return; const el=$(id); if(el) el.classList.add("inv"); E.push(msg); };
-  chk("fp",v("fp")>=0.5&&v("fp")<=1,"El factor de potencia debe estar entre 0,5 y 1.");
+  chk("fp",v("fp")>=0.5&&v("fp")<=1,"El factor de potencia debe estar entre 0.5 y 1.");
   chk("iccE",v("iccE")>0,"Ingrese la corriente de cortocircuito del punto de entrega (Ajustes).");
   chk("rho_s",v("rho_s")>0,"Ingrese la resistividad del suelo (Ajustes).");
   chk("Lv",v("Lv")>=0.5,"Ingrese la longitud de la varilla de puesta a tierra (Ajustes).");
@@ -1079,7 +1141,7 @@ async function exportar(){
   const cell=(ws,r_,c_,v,st={})=>{ const x=ws.getCell(r_,c_); if(v!==undefined) x.value=v;
     x.font={name:"Arial",size:st.size||9,bold:!!st.bold,italic:!!st.it,color:{argb:st.color||K.ink}};
     if(st.fill) x.fill={type:"pattern",pattern:"solid",fgColor:{argb:st.fill}};
-    x.alignment={vertical:"middle",horizontal:st.h||"left",wrapText:!!st.wrap,indent:st.ind||0};
+    x.alignment={vertical:"middle",horizontal:st.h||"left",wrapText:!!st.wrap,indent:st.ind||0,shrinkToFit:!!st.shrink};
     if(st.box) x.border=BOX; if(st.fmt) x.numFmt=st.fmt; return x; };
   const span=(ws,r_,c1,c2,v,st={})=>{ if(c2>c1) ws.mergeCells(r_,c1,r_,c2); const x=cell(ws,r_,c1,v,st);
     for(let k=c1+1;k<=c2;k++){ const y=ws.getCell(r_,k); if(st.box) y.border=BOX; if(st.fill) y.fill={type:"pattern",pattern:"solid",fgColor:{argb:st.fill}}; } return x; };
@@ -1087,13 +1149,13 @@ async function exportar(){
   const val={box:1,h:"center"};
   const cabecera=(ws,last,sub,hoja)=>{
     ws.getRow(1).height=30;
-    span(ws,1,1,2,"JMG - ELECTRIC",{bold:1,size:11,color:"FFFFFFFF",fill:K.copper,h:"center"});
+    span(ws,1,1,2,"JMG - ELECTRIC",{bold:1,size:11,color:"FFFFFFFF",fill:K.copper,h:"center",shrink:1});
     span(ws,1,3,last,"MEMORIA DE CÁLCULO DE INSTALACIONES ELÉCTRICAS INTERIORES",{bold:1,size:11,color:"FFFFFFFF",fill:K.navy,h:"center"});
     ws.getRow(2).height=19; span(ws,2,1,last,sub,{bold:1,size:10,color:K.navy,fill:K.soft,h:"center"});
     const half=Math.floor(last/2);
     [["Proyecto",c.proj.nombre||"—"],["Propietario",c.proj.prop||"—"],["Ubicación",c.proj.ubic||"—"],["Proyectista",c.proj.proy||"—"],["Normativa","CNE-Utilización · RNE EM.010 · Norma DGE"],["Fecha · Hoja",`${fecha} · ${hoja}`]]
       .forEach(([k,v],i)=>{ const rw=3+Math.floor(i/2), left=i%2===0, c1=left?1:half+1, c2=left?half:last;
-        span(ws,rw,c1,c1+1,k.toUpperCase(),{bold:1,size:7.5,color:K.grey,fill:K.lab,box:1}); span(ws,rw,c1+2,c2,v,{box:1,size:9}); ws.getRow(rw).height=17; });
+        span(ws,rw,c1,c1+1,k.toUpperCase(),{bold:1,size:7.5,color:K.grey,fill:K.lab,box:1}); span(ws,rw,c1+2,c2,v,{box:1,size:9,shrink:1}); ws.getRow(rw).height=17; });
     return 7; };
   const seccion=(ws,rw,last,txt)=>{ ws.getRow(rw).height=22; span(ws,rw,1,last,txt,{bold:1,size:10.5,color:K.navy});
     for(let k=1;k<=last;k++) ws.getCell(rw,k).border={bottom:{style:"medium",color:{argb:K.navy}}}; return rw+2; };
@@ -1159,16 +1221,16 @@ async function exportar(){
   par("ft","Factor de corrección por temperatura",c.ft,"—",`${c.temp} °C · Tabla 5A`,true);
   par("fa","Factor de corrección por agrupamiento",c.fa,"—",`${c.nag} circuito(s) por tubería · Tabla 5C`,true);
   { const rr=m; R.fc=`'Memoria'!$F$${rr}`; span(wsM,m,1,5,"Factor de corrección total en circuitos derivados",{box:1,ind:1}); cell(wsM,m,6,F(`F${rr-2}*F${rr-1}`,c.fc),{...val,fmt:"0.00"}); cell(wsM,m,7,"—",{...val,color:K.grey}); span(wsM,m,8,10,"Temperatura × agrupamiento",{box:1,size:8,color:K.grey}); m++; }
-  par("fd","Factor de corriente de diseño",FD,"—","Corriente de diseño = 1,25 × I",false);
+  par("fd","Factor de corriente de diseño",FD,"—","Corriente de diseño = 1.25 × I",false);
   par("dvA","Caída de tensión máxima en alimentadores",DV_ALIM,"%","Regla 050-102(1)",false,"0.0");
   par("dvD","Caída de tensión máxima en circuitos derivados",DV_DER,"%","Regla 050-102(2)",false,"0.0");
   par("dvT","Caída de tensión máxima total",DV_TOT,"%","Regla 050-102",false,"0.0");
   par("icc","Corriente de cortocircuito en el punto de entrega",c.iccE,"kA","Dato de la concesionaria (Norma DGE, 110.F)",true,"0.0");
   par("idm","Esquema de interruptores diferenciales",c.idMode==="grupo"?"Por grupos de 3 circuitos":"Uno por circuito","",c.idMode==="grupo"?"Regla 150-400(8)":"Regla 150-400(9)",false,"@");
   if(!multi){
-    par("aT","Área techada de vivienda",r.areaT,"m²","Regla 050-110(1)",true,"#,##0.0");
-    par("aS","Área de sótano",r.sot,"m²","Se computa al 75 %",true,"#,##0.0");
-    { const rr=m; R.area=`'Memoria'!$F$${rr}`; span(wsM,m,1,5,"Área de vivienda computable",{box:1,ind:1}); cell(wsM,m,6,F(`F${rr-2}+0.75*F${rr-1}`,r.area),{...val,fmt:"#,##0.0",bold:1}); cell(wsM,m,7,"m²",{...val,color:K.grey}); span(wsM,m,8,10,"Regla 050-110(1)",{box:1,size:8,color:K.grey}); m++; }
+    par("aT","Área techada de vivienda",r.areaT,"m²","Regla 050-110(1)",true,"0.0");
+    par("aS","Área de sótano",r.sot,"m²","Se computa al 75 %",true,"0.0");
+    { const rr=m; R.area=`'Memoria'!$F$${rr}`; span(wsM,m,1,5,"Área de vivienda computable",{box:1,ind:1}); cell(wsM,m,6,F(`F${rr-2}+0.75*F${rr-1}`,r.area),{...val,fmt:"0.0",bold:1}); cell(wsM,m,7,"m²",{...val,color:K.grey}); span(wsM,m,8,10,"Regla 050-110(1)",{box:1,size:8,color:K.grey}); m++; }
   }
   m=nota(wsM,m,LM,"Las celdas sombreadas en azul son datos de entrada: al modificarlas, el libro recalcula los resultados.")+1;
 
@@ -1180,30 +1242,30 @@ async function exportar(){
     const c0=m, n=Math.max(r.cs.length,1);
     for(let i=0;i<n;i++){ const it=r.cs[i];
       span(wsM,m,1,4,it?it.nombre:"(sin cargas especiales)",{box:1,ind:1}); span(wsM,m,5,6,it?TIPOS[it.tipo].split(" (")[0]:"—",{box:1});
-      cell(wsM,m,7,it?(it.fases===3&&SIST[r.sk].tri?"3φ":"1φ"):"—",val); cell(wsM,m,8,it?it.p:0,{...inp,fmt:"#,##0"}); cell(wsM,m,9,it?it.L:0,{...val,fmt:"0.0"});
+      cell(wsM,m,7,it?(it.fases===3&&SIST[r.sk].tri?"3φ":"1φ"):"—",val); cell(wsM,m,8,it?it.p:0,{...inp,fmt:"0"}); cell(wsM,m,9,it?it.L:0,{...val,fmt:"0.0"});
       const ci=it?r.circ.find(q=>q.desc===it.nombre):null; cell(wsM,m,10,ci?ci.id:"—",val); m++; }
     const T=`$E$${c0}:$E$${m-1}`, P=`$H$${c0}:$H$${m-1}`; m++;
     m=sub(wsM,m,LM,"2.2  Determinación de la máxima demanda · Regla 050-200(1)");
     m=thead(wsM,m,[[1,4,"Concepto"],[5,8,"Criterio"],[9,9,"Instalada (W)"],[10,10,"Demanda (W)"]]);
     const md=r.md, d0=m;
-    const mr=(a,b,ci,de,fi="#,##0")=>{ span(wsM,m,1,4,a,{box:1,ind:1}); span(wsM,m,5,8,b,{box:1,size:8,color:K.grey,wrap:1}); cell(wsM,m,9,ci,{...val,fmt:fi}); cell(wsM,m,10,de,{...val,fmt:"#,##0"}); wsM.getRow(m).height=24; return m++; };
-    mr("Carga básica","2 500 W por los primeros 90 m² + 1 000 W por cada 90 m² o fracción adicional",F(R.area,r.area),F(`2500+1000*MAX(0,ROUNDUP((${R.area}-90)/90,0))`,md.basica),'#,##0.0" m²"');
+    const mr=(a,b,ci,de,fi="0")=>{ span(wsM,m,1,4,a,{box:1,ind:1}); span(wsM,m,5,8,b,{box:1,size:8,color:K.grey,wrap:1}); cell(wsM,m,9,ci,{...val,fmt:fi}); cell(wsM,m,10,de,{...val,fmt:"0"}); wsM.getRow(m).height=24; return m++; };
+    mr("Carga básica","2 500 W por los primeros 90 m² + 1 000 W por cada 90 m² o fracción adicional",F(R.area,r.area),F(`2500+1000*MAX(0,ROUNDUP((${R.area}-90)/90,0))`,md.basica),'0.0" m²"');
     const rC=mr("Cocina eléctrica","6 000 W + 40 % del exceso sobre 12 kW",F(`SUMIFS(${P},${T},"Cocina eléctrica")`,md.coc),F(`IF(I${m}>0,6000+0.4*MAX(0,I${m}-12000),0)`,md.mdCoc));
     mr("Calentadores de agua y duchas","100 %",F(`SUMIFS(${P},${T},"Calentador de agua / ducha")`,md.cal),F(`I${m}`,md.cal));
     mr("Aire acondicionado","100 %",F(`SUMIFS(${P},${T},"Aire acondicionado")`,md.aire),F(`I${m}`,md.aire));
     mr("Otras cargas mayores de 1 500 W","25 % si existe cocina; si no, 100 % hasta 6 kW + 25 % del exceso",F(`SUMIFS(${P},${T},"Otra carga",${P},">1500")+SUMIFS(${P},${T},"Motor",${P},">1500")`,md.otras),F(`IF($I$${rC}>0,0.25*I${m},MIN(I${m},6000)+0.25*MAX(0,I${m}-6000))`,md.mdOtras));
-    span(wsM,m,1,9,"MÁXIMA DEMANDA DE LA VIVIENDA (W)",{box:1,ind:1}); cell(wsM,m,10,F(`SUM(J${d0}:J${m-1})`,md.MD),{...val,fmt:"#,##0"}); tot(wsM,m,1,10);
+    span(wsM,m,1,9,"MÁXIMA DEMANDA DE LA VIVIENDA (W)",{box:1,ind:1}); cell(wsM,m,10,F(`SUM(J${d0}:J${m-1})`,md.MD),{...val,fmt:"0"}); tot(wsM,m,1,10);
     MDREF=`'Memoria'!$J$${m}`; m+=2;
   } else {
     m=sub(wsM,m,LM,"2.1  Carga por unidad de vivienda · Regla 050-202(1)");
-    m=thead(wsM,m,[[1,1,"Tipo"],[2,2,"Unidades"],[3,3,"Área (m²)"],[4,4,"Carga básica (W)"],[5,5,"Cocina (W)"],[6,6,"Calentador (W)"],[7,7,"Aire acond. (W)"],[8,8,"Otras > 1,5 kW (W)"],[9,9,"MD sin aire (W)"],[10,10,"MD unidad (W)"]]);
+    m=thead(wsM,m,[[1,1,"Tipo"],[2,2,"Unidades"],[3,3,"Área (m²)"],[4,4,"Carga básica (W)"],[5,5,"Cocina (W)"],[6,6,"Calentador (W)"],[7,7,"Aire acond. (W)"],[8,8,"Otras > 1.5 kW (W)"],[9,9,"MD sin aire (W)"],[10,10,"MD unidad (W)"]]);
     const u0=m;
     r.T.forEach(t=>{ tipoRow[t.nombre]=m;
-      cell(wsM,m,1,t.nombre,{box:1,bold:1,h:"center"}); cell(wsM,m,2,t.cant,{...inp,fmt:"0"}); cell(wsM,m,3,t.area,{...inp,fmt:"#,##0.0"});
-      cell(wsM,m,4,F(`1500+IF(C${m}>45,1000,0)+1000*MAX(0,ROUNDUP((C${m}-90)/90,0))`,t.md.basica),{...val,fmt:"#,##0"});
-      [t.coc,t.cal,t.aire,t.otras].forEach((v,j)=>cell(wsM,m,5+j,v,{...inp,fmt:"#,##0"}));
-      cell(wsM,m,9,F(`D${m}+IF(E${m}>0,6000+0.4*MAX(0,E${m}-12000),0)+F${m}+IF(E${m}>0,0.25*H${m},MIN(H${m},6000)+0.25*MAX(0,H${m}-6000))`,t.md.sinAire),{...val,fmt:"#,##0"});
-      cell(wsM,m,10,F(`I${m}+G${m}`,t.md.MD),{...val,fmt:"#,##0",bold:1}); m++; });
+      cell(wsM,m,1,t.nombre,{box:1,bold:1,h:"center"}); cell(wsM,m,2,t.cant,{...inp,fmt:"0"}); cell(wsM,m,3,t.area,{...inp,fmt:"0.0"});
+      cell(wsM,m,4,F(`1500+IF(C${m}>45,1000,0)+1000*MAX(0,ROUNDUP((C${m}-90)/90,0))`,t.md.basica),{...val,fmt:"0"});
+      [t.coc,t.cal,t.aire,t.otras].forEach((v,j)=>cell(wsM,m,5+j,v,{...inp,fmt:"0"}));
+      cell(wsM,m,9,F(`D${m}+IF(E${m}>0,6000+0.4*MAX(0,E${m}-12000),0)+F${m}+IF(E${m}>0,0.25*H${m},MIN(H${m},6000)+0.25*MAX(0,H${m}-6000))`,t.md.sinAire),{...val,fmt:"0"});
+      cell(wsM,m,10,F(`I${m}+G${m}`,t.md.MD),{...val,fmt:"0",bold:1}); m++; });
     const u1=m-1;
     span(wsM,m,1,1,"TOTAL",{box:1,h:"center"}); cell(wsM,m,2,F(`SUM(B${u0}:B${u1})`,r.units.length),{...val,fmt:"0"}); for(let k=3;k<=10;k++) cell(wsM,m,k,"",{box:1}); tot(wsM,m,1,10); m++;
     m=nota(wsM,m,LM,"Carga básica: 1 500 W por los primeros 45 m², 1 000 W por los segundos 45 m² y 1 000 W por cada 90 m² o fracción adicional. Cocina: 6 000 W más 40 % del exceso sobre 12 kW. Otras cargas mayores de 1 500 W: 25 % si existe cocina; si no, 100 % hasta 6 kW más 25 % del exceso. Corriente mínima del alimentador de cada departamento: 25 A.")+1;
@@ -1213,12 +1275,12 @@ async function exportar(){
     r.T.forEach((t,i)=>{ const tr=tipoRow[t.nombre];
       span(wsM,m,1,2,t.nombre,{box:1,bold:1,h:"center"}); cell(wsM,m,3,F(`B${tr}`,t.cant),{...val,fmt:"0"});
       cell(wsM,m,4,i===0?1:F(`E${m-1}+1`,t.desde),{...val,fmt:"0"}); cell(wsM,m,5,F(`D${m}+C${m}-1`,t.hasta),{...val,fmt:"0"});
-      cell(wsM,m,6,F(`I${tr}`,t.md.sinAire),{...val,fmt:"#,##0"}); cell(wsM,m,7,F(`C${m}*F${m}`,t.cant*t.md.sinAire),{...val,fmt:"#,##0"});
+      cell(wsM,m,6,F(`I${tr}`,t.md.sinAire),{...val,fmt:"0"}); cell(wsM,m,7,F(`C${m}*F${m}`,t.cant*t.md.sinAire),{...val,fmt:"0"});
       const s=`(D${m}-1)`, e=`E${m}`;
-      span(wsM,m,9,10,F(`F${m}*(MAX(0,MIN(${e},1)-MAX(${s},0))+0.65*MAX(0,MIN(${e},3)-MAX(${s},1))+0.4*MAX(0,MIN(${e},5)-MAX(${s},3))+0.3*MAX(0,MIN(${e},20)-MAX(${s},5))+0.25*MAX(0,${e}-MAX(${s},20)))`,t.dem),{...val,fmt:"#,##0"});
+      span(wsM,m,9,10,F(`F${m}*(MAX(0,MIN(${e},1)-MAX(${s},0))+0.65*MAX(0,MIN(${e},3)-MAX(${s},1))+0.4*MAX(0,MIN(${e},5)-MAX(${s},3))+0.3*MAX(0,MIN(${e},20)-MAX(${s},5))+0.25*MAX(0,${e}-MAX(${s},20)))`,t.dem),{...val,fmt:"0"});
       cell(wsM,m,8,F(`IF(G${m}>0,I${m}/G${m},0)`,t.cant*t.md.sinAire>0?t.dem/(t.cant*t.md.sinAire):0),{...val,fmt:"0.0%"}); m++; });
     const e1=m-1;
-    const er=(lab,f,v,bold)=>{ span(wsM,m,1,8,lab,{box:1,ind:1}); span(wsM,m,9,10,F(f,v),{...val,fmt:"#,##0"}); if(bold) tot(wsM,m,1,10); return m++; };
+    const er=(lab,f,v,bold)=>{ span(wsM,m,1,8,lab,{box:1,ind:1}); span(wsM,m,9,10,F(f,v),{...val,fmt:"0"}); if(bold) tot(wsM,m,1,10); return m++; };
     er("Demanda de departamentos · 050-202(3)(a)",`SUM(I${e0}:I${e1})`,r.mdDeptos);
     er("Aire acondicionado de departamentos (100 %) · 050-202(3)(c)",`SUMPRODUCT(B${u0}:B${u1},G${u0}:G${u1})`,r.aireTot);
     const rS=er("Cargas comunes fuera de las unidades (75 %) · 050-202(3)(d)","0",r.mdServ);
@@ -1230,9 +1292,9 @@ async function exportar(){
     const s0=m, ns=Math.max(r.SV.length,1);
     for(let i=0;i<ns;i++){ const it=r.SV[i];
       span(wsM,m,1,4,it?it.nombre:"(sin cargas comunes)",{box:1,ind:1}); span(wsM,m,5,6,it?TSERV[it.tipo]:"—",{box:1});
-      cell(wsM,m,7,it?(it.fases===3&&SIST[r.sk].tri?"3φ":"1φ"):"—",val); cell(wsM,m,8,it?it.p:0,{...inp,fmt:"#,##0"}); cell(wsM,m,9,it?it.L:0,{...val,fmt:"0.0"}); cell(wsM,m,10,it?`S-${i+1}`:"—",val); m++; }
+      cell(wsM,m,7,it?(it.fases===3&&SIST[r.sk].tri?"3φ":"1φ"):"—",val); cell(wsM,m,8,it?it.p:0,{...inp,fmt:"0"}); cell(wsM,m,9,it?it.L:0,{...val,fmt:"0.0"}); cell(wsM,m,10,it?`S-${i+1}`:"—",val); m++; }
     const s1=m-1;
-    const sr=(lab,f,v,bold)=>{ span(wsM,m,1,7,lab,{box:1,ind:1}); cell(wsM,m,8,F(f,v),{...val,fmt:"#,##0"}); span(wsM,m,9,10,"",{box:1}); if(bold) tot(wsM,m,1,10); return m++; };
+    const sr=(lab,f,v,bold)=>{ span(wsM,m,1,7,lab,{box:1,ind:1}); cell(wsM,m,8,F(f,v),{...val,fmt:"0"}); span(wsM,m,9,10,"",{box:1}); if(bold) tot(wsM,m,1,10); return m++; };
     const sT=sr("Potencia instalada de servicios generales",`SUM(H${s0}:H${s1})`,r.Pserv);
     const sM=sr("Motor de mayor potencia",`SUMPRODUCT(MAX((E${s0}:E${s1}="Motor")*H${s0}:H${s1}))`,r.maxMot);
     const sD=sr("Potencia de diseño del alimentador TSG (+25 % del mayor motor)",`H${sT}+0.25*H${sM}`,r.Pserv+0.25*r.maxMot,true);
@@ -1245,22 +1307,23 @@ async function exportar(){
   let k=cabecera(wsC,LC,"CÁLCULO DE ALIMENTADORES, CIRCUITOS DERIVADOS, BALANCE DE FASES Y CORTOCIRCUITO","Hoja 2 de 5");
   const HDR=(first)=>[[1,first?3:1,first?"Alimentador":"Tablero"],...(first?[]:[[2,2,"Nº"],[3,3,"Descripción"]]),[4,4,first?"Cant.":"Salidas"],[5,5,"Potencia (W)"],[6,6,first?"Fases":"Fases · fase"],[7,7,"Tensión (V)"],[8,8,"I nominal (A)"],[9,9,"I diseño (A)"],[10,10,first?"ITM (A)":"ITM (A · curva)"],[11,11,"Sección (mm²)"],[12,12,"Iz corregida (A)"],[13,13,"Longitud (m)"],[14,14,"ΔV (%)"],[15,15,first?"ΔV acum. (%)":"ΔV total (%)"],[16,16,"Verificación"],[17,17,"Tierra (mm²)"],[18,18,first?"Conductores":"Diferencial 30 mA"],[19,19,"PdC (kA)"],[20,20,"Tubo PVC"]];
   const fI=rw=>`E${rw}/(IF(LEFT(F${rw},2)="3φ",SQRT(3),1)*G${rw}*${R.fp})`;
-  const fIz=(rw,col,fac)=>`INDEX(${AMPR},MATCH(K${rw},${SECR},0),${col+1})*${fac}`;
+  const AB=c.aisl==="pvc"?0:2;
+  const fIz=(rw,col,fac,tri)=>`INDEX(${AMPR},MATCH(K${rw},${SECR},0),${col===AB+(tri?1:0)?`${AB+1}+IF(LEFT(F${rw},2)="3φ",1,0)`:col+1})*${fac}`;
   const fDV=rw=>`IF(LEFT(F${rw},2)="3φ",SQRT(3),2)*${R.rho}*M${rw}*H${rw}/K${rw}/G${rw}*100`;
   k=seccion(wsC,k,LC,"1.  ALIMENTADORES");
   k=thead(wsC,k,HDR(true));
   const genRow=k;
   r.alims.forEach((a,i)=>{
     const pf=a.pKey==="MD"?F(MDREF,a.P):a.pKey==="servP"?F(servPRef,a.P):F(`'Memoria'!$J$${tipoRow[r.T[a.ti].nombre]}`,a.P);
-    span(wsC,k,1,3,a.desc,{box:1,ind:1,size:8.5}); cell(wsC,k,4,a.cant??1,{...val,fmt:"0"}); cell(wsC,k,5,pf,{...val,fmt:"#,##0"});
+    span(wsC,k,1,3,a.desc,{box:1,ind:1,size:8.5}); cell(wsC,k,4,a.cant??1,{...val,fmt:"0"}); cell(wsC,k,5,pf,{...val,fmt:"0"});
     cell(wsC,k,6,a.s.tri?"3φ":"1φ",val); cell(wsC,k,7,a.s.V,val);
     cell(wsC,k,8,F(fI(k),a.I),{...val,fmt:"0.00"}); cell(wsC,k,9,F(`MAX(H${k}*${R.fd},${a.Imin||0})`,a.Id),{...val,fmt:"0.00"});
-    cell(wsC,k,10,a.itm,{...inp,fmt:"0"}); cell(wsC,k,11,a.S,{...inp,fmt:"0.0"}); cell(wsC,k,12,F(fIz(k,a.col,R.ft),a.Izc),{...val,fmt:"0.0"});
+    cell(wsC,k,10,a.itm,{...inp,fmt:"0"}); cell(wsC,k,11,a.S,{...inp,fmt:"0.0"}); cell(wsC,k,12,F(fIz(k,a.col,R.ft,a.s.tri),a.Izc),{...val,fmt:"0.0"});
     cell(wsC,k,13,a.L,{...inp,fmt:"0.0"}); cell(wsC,k,14,F(fDV(k),a.dVp),{...val,fmt:"0.00"}); cell(wsC,k,15,F(i===0?`N${k}`:`N${k}+$O$${genRow}`,a.dvAc),{...val,fmt:"0.00",bold:1});
     cell(wsC,k,16,F(`IF(AND(I${k}<=J${k},J${k}<=L${k},O${k}<=${R.dvA}),"CONFORME","REVISAR")`,a.ok?"CONFORME":"REVISAR"),{...val,bold:1,size:8});
     cell(wsC,k,17,a.St,{...val,fmt:"0.0"}); cell(wsC,k,18,`${a.s.n}-1×${a.S} + 1×${a.St}(T)${c.desig?" "+c.desig:""}`,{...val,size:8,wrap:1}); cell(wsC,k,19,a.pdc,{...val,fmt:"0.0"}); cell(wsC,k,20,a.tubo.mm?`${a.tubo.mm} mm`:a.tubo.pul,{...val,size:8});
     a._row=k; k++; });
-  k=nota(wsC,k,LC,`Verificación: corriente de diseño ≤ ITM ≤ ampacidad corregida por temperatura, y caída de tensión acumulada ≤ 2,5 %. Corriente de diseño no menor que la mínima del código (${multi?"25 A por departamento, Regla 050-202(1)(b)":"40 A, Regla 050-200(1)(b)"}). Celdas en azul: valores seleccionados, modificables.`)+1;
+  k=nota(wsC,k,LC,`Verificación: corriente de diseño ≤ ITM ≤ ampacidad corregida por temperatura, y caída de tensión acumulada ≤ 2.5 %. Corriente de diseño no menor que la mínima del código (${multi?"25 A por departamento, Regla 050-202(1)(b)":"40 A, Regla 050-200(1)(b)"}). Celdas en azul: valores seleccionados, modificables.`);+1;
   k=seccion(wsC,k,LC,"2.  CUADRO DE CARGAS · CIRCUITOS DERIVADOS");
   k=thead(wsC,k,HDR(false));
   const cStart=k, subRows=[], subMul=[];
@@ -1269,19 +1332,19 @@ async function exportar(){
     const t0=k, cs=r.circ.filter(q=>q.tab===tb.tab);
     cs.forEach(q=>{
       cell(wsC,k,1,tb.tab,{...val,size:8}); cell(wsC,k,2,q.id,{...val,bold:1}); cell(wsC,k,3,q.motor?`${q.desc} (motor)`:q.desc,{box:1,ind:1,size:8.5}); cell(wsC,k,4,q.n,{...val,fmt:"0"});
-      cell(wsC,k,5,q.P,{...inp,fmt:"#,##0"}); cell(wsC,k,6,q.f3?"3φ":(r.bal&&q.fase&&q.fase!=="—"?`1φ · ${q.fase}`:"1φ"),{...val,size:8}); cell(wsC,k,7,q.s.V,val);
+      cell(wsC,k,5,q.P,{...inp,fmt:"0"}); cell(wsC,k,6,q.f3?"3φ":(r.bal&&q.fase&&q.fase!=="—"?`1φ · ${q.fase}`:"1φ"),{...val,size:8}); cell(wsC,k,7,q.s.V,val);
       cell(wsC,k,8,F(fI(k),q.I),{...val,fmt:"0.00"}); cell(wsC,k,9,F(`H${k}*${R.fd}`,q.Id),{...val,fmt:"0.00"});
-      cell(wsC,k,10,q.itm,{...inp,fmt:`0" · ${q.curva}"`}); cell(wsC,k,11,q.S,{...inp,fmt:"0.0"}); cell(wsC,k,12,F(fIz(k,q.col,R.fc),q.Izc),{...val,fmt:"0.0"});
+      cell(wsC,k,10,q.itm,{...inp,fmt:`0" · ${q.curva}"`}); cell(wsC,k,11,q.S,{...inp,fmt:"0.0"}); cell(wsC,k,12,F(fIz(k,q.col,R.fc,q.f3),q.Izc),{...val,fmt:"0.0"});
       cell(wsC,k,13,q.L,{...inp,fmt:"0.0"}); cell(wsC,k,14,F(fDV(k),q.dVp),{...val,fmt:"0.00"}); cell(wsC,k,15,F(`N${k}+$O$${f._row}`,q.dVt),{...val,fmt:"0.00",bold:1});
       cell(wsC,k,16,F(`IF(AND(I${k}<=J${k},J${k}<=L${k},N${k}<=${R.dvD},O${k}<=${R.dvT}),"CONFORME","REVISAR")`,q.ok?"CONFORME":"REVISAR"),{...val,bold:1,size:8});
       cell(wsC,k,17,q.St,{...val,fmt:"0.0"}); cell(wsC,k,18,`${q.idName} · ${q.f3?4:2}×${q.idRat} A`,{...val,size:8}); cell(wsC,k,19,tb.pdc,{...val,fmt:"0.0"}); cell(wsC,k,20,q.tubo.mm?`${q.tubo.mm} mm`:q.tubo.pul,{...val,size:8});
       k++; });
     const pre=tb.tab==="TSG"?"S-":"C-";
     for(let i=1;i<=c.reserva;i++){ cell(wsC,k,1,tb.tab,{...val,size:8}); cell(wsC,k,2,`${pre}${cs.length+i}`,{...val,bold:1}); cell(wsC,k,3,"Reserva",{box:1,ind:1,it:1,color:K.grey}); for(let j=4;j<=LC;j++) cell(wsC,k,j,"—",{...val,color:K.grey}); k++; }
-    span(wsC,k,1,4,`Subtotal ${tb.tab}`,{box:1,ind:1}); cell(wsC,k,5,F(`SUM(E${t0}:E${k-1})`,cs.reduce((s,q)=>s+q.P,0)),{...val,fmt:"#,##0"}); for(let j=6;j<=LC;j++) cell(wsC,k,j,"",{box:1}); tot(wsC,k,1,LC); subRows.push(k); subMul.push(f.cant||1); k++;
+    span(wsC,k,1,4,`Subtotal ${tb.tab}`,{box:1,ind:1}); cell(wsC,k,5,F(`SUM(E${t0}:E${k-1})`,cs.reduce((s,q)=>s+q.P,0)),{...val,fmt:"0"}); for(let j=6;j<=LC;j++) cell(wsC,k,j,"",{box:1}); tot(wsC,k,1,LC); subRows.push(k); subMul.push(f.cant||1); k++;
   });
   const cEnd=k-1;
-  k=nota(wsC,k,LC,`Verificación: corriente de diseño ≤ ITM ≤ ampacidad corregida (Tabla 2, método ${c.met}, Tablas 5A y 5C); ΔV del circuito ≤ 2,5 % y total ≤ 4 % (Regla 050-102). Máximo 12 salidas por circuito (Regla 070-3000). Diferenciales de 30 mA ${c.idMode==="grupo"?"por grupos de tres circuitos (Regla 150-400(8))":"en cada circuito (Regla 150-400(9))"}. Espacios de reserva: ${c.reserva} por tablero (Regla 050-108, EM.010 Art. 9).`)+1;
+  k=nota(wsC,k,LC,`Verificación: corriente de diseño ≤ ITM ≤ ampacidad corregida (Tabla 2, método ${c.met}, Tablas 5A y 5C); ΔV del circuito ≤ 2.5 % y total ≤ 4 % (Regla 050-102). Máximo 12 salidas por circuito (Regla 070-3000). Diferenciales de 30 mA ${c.idMode==="grupo"?"por grupos de tres circuitos (Regla 150-400(8))":"en cada circuito (Regla 150-400(9))"}. Espacios de reserva: ${c.reserva} por tablero (Regla 050-108, EM.010 Art. 9).`)+1;
   cfmt(wsC,`P${genRow}:P${cEnd}`);
   wsC.pageSetup.printTitlesRow=`${cStart-1}:${cStart-1}`;
   let balRow=null;
@@ -1290,8 +1353,8 @@ async function exportar(){
     k=thead(wsC,k,[[1,2,"Fase"],[3,3,"Cargas asignadas"],[4,5,"Potencia (W)"],[6,7,"Participación"]]);
     const b0=k, items=r.bal.items;
     r.bal.nm.forEach((nm,i)=>{ const its=items.filter(q=>q.fase===nm).map(q=>(q.ref||q.id)+(q.fijo?" (fijada)":""));
-      span(wsC,k,1,2,nm,{...val,bold:1}); cell(wsC,k,3,(its.join(", ")||"—")+(items.some(q=>q.fase==="3φ")?" · más 1/3 de cargas trifásicas":""),{box:1,wrap:1,size:8}); span(wsC,k,4,5,r.bal.ph[i],{...val,fmt:"#,##0"}); span(wsC,k,6,7,F(`D${k}/SUM($D$${b0}:$D$${b0+2})`,r.bal.ph[i]/(r.bal.ph.reduce((s,v)=>s+v,0)||1)),{...val,fmt:"0.0%"}); wsC.getRow(k).height=Math.max(18,Math.ceil(its.join(", ").length/45)*12); k++; });
-    span(wsC,k,1,3,"Desbalance = (fase más cargada − promedio) / promedio",{box:1,ind:1}); span(wsC,k,4,5,F(`(MAX(D${b0}:D${b0+2})-AVERAGE(D${b0}:D${b0+2}))/AVERAGE(D${b0}:D${b0+2})`,r.bal.desb/100),{...val,fmt:"0.0%",bold:1});
+      span(wsC,k,1,2,nm,{...val,bold:1}); const txt=(its.join(", ")||"—")+(items.some(q=>q.fase==="3φ")?" · más 1/3 de cargas trifásicas":""); cell(wsC,k,3,txt,{box:1,wrap:1,size:8}); span(wsC,k,4,5,r.bal.ph[i],{...val,fmt:"0"}); span(wsC,k,6,7,F(`D${k}/SUM($D$${b0}:$D$${b0+2})`,r.bal.ph[i]/(r.bal.ph.reduce((s,v)=>s+v,0)||1)),{...val,fmt:"0.0%"}); wsC.getRow(k).height=Math.max(18,Math.ceil(txt.length/42)*11+8); k++; });
+    span(wsC,k,1,3,"Desbalance = (fase más cargada − promedio) / promedio",{box:1,ind:1,wrap:1}); wsC.getRow(k).height=26; span(wsC,k,4,5,F(`(MAX(D${b0}:D${b0+2})-AVERAGE(D${b0}:D${b0+2}))/AVERAGE(D${b0}:D${b0+2})`,r.bal.desb/100),{...val,fmt:"0.0%",bold:1});
     span(wsC,k,6,7,F(`IF(D${k}<=0.1,"CONFORME","OBSERVACIÓN")`,r.bal.desb<=10?"CONFORME":"OBSERVACIÓN"),{...val,bold:1,size:8}); cfmt(wsC,`F${k}:G${k}`); tot(wsC,k,1,7); balRow=k; k++;
     span(wsC,k,1,3,"Desbalance mínimo alcanzable con estas cargas",{box:1,ind:1}); span(wsC,k,4,5,r.bal.desbMin/100,{...val,fmt:"0.0%"}); span(wsC,k,6,7,"",{box:1}); k++;
     k=nota(wsC,k,LC,`Reparto de cargas monofásicas con el menor desbalance posible${r.bal.nFix?`; ${r.bal.nFix} carga(s) con fase fijada por el proyectista`:""}. Criterio de diseño: desbalance no mayor de 10 %. ${r.bal.desb>10?sugerencia(r):""}`)+1;
@@ -1310,8 +1373,8 @@ async function exportar(){
   const rs=(lab,v,u,f)=>{ span(wsM,m,1,6,lab,{box:1,ind:1}); span(wsM,m,7,8,v,{...val,bold:1,fmt:f}); span(wsM,m,9,10,u,{...val,color:K.grey,size:8}); m++; };
   const C2=`'Cálculos'!`;
   if(multi) rs("Número de departamentos",F(`SUM(B${tipoRow[r.T[0].nombre]}:B${tipoRow[r.T[r.T.length-1].nombre]})`,r.units.length),"unid.","0");
-  rs("Potencia instalada",F(subRows.map((q,i)=>`${subMul[i]}*${C2}E${q}`).join("+"),r.CI),"W","#,##0");
-  rs("Máxima demanda",F(MDREF,multi?r.MD:r.md.MD),"W","#,##0");
+  rs("Potencia instalada",F(subRows.map((q,i)=>`${subMul[i]}*${C2}E${q}`).join("+"),r.CI),"W","0");
+  rs("Máxima demanda",F(MDREF,multi?r.MD:r.md.MD),"W","0");
   rs("Potencia a contratar sugerida",F(`ROUNDUP(${MDREF}/500,0)/2`,r.contratada),"kW","0.0");
   rs("Sistema de suministro",SIST[r.sk].nom,"Tabla 201-01","@");
   rs("Tipo de conexión",multi?"En derivación":"Conexión simple",multi?"Banco de medidores · DGE 301.C":"Norma DGE, 301.A","@");
@@ -1329,15 +1392,18 @@ async function exportar(){
   m=thead(wsM,m,[[1,4,"Parámetro"],[5,6,"Valor"],[7,7,"Unidad"],[8,10,"Criterio"]]);
   const p0=m;
   const pr=(lab,v,u,crit,st)=>{ span(wsM,m,1,4,lab,{box:1,ind:1}); span(wsM,m,5,6,v,st); cell(wsM,m,7,u,{...val,color:K.grey}); span(wsM,m,8,10,crit,{box:1,size:8,color:K.grey}); m++; };
-  pr("Resistividad del suelo",p.rho,"Ω·m","Medición por método de Wenner",{...inp,fmt:"#,##0"});
+  pr("Resistividad del suelo",p.rho,"Ω·m","Medición por método de Wenner",{...inp,fmt:"0"});
   pr("Longitud de la varilla",p.Lv,"m","Mínimo 2 m · Regla 060-702(3)",{...inp,fmt:"0.00"});
   pr("Diámetro de la varilla",p.dv,"m","Cu ≥ 13 mm; acero-cobre ≥ 16 mm",{...inp,fmt:"0.0000"});
   pr("Resistencia del electrodo sin tratamiento",F(`E${p0}/(2*PI()*E${p0+1})*(LN(4*E${p0+1}/(E${p0+2}/2))-1)`,p.Rv),"Ω","Electrodo vertical (Dwight)",{...val,fmt:"0.00"});
   pr("Factor de reducción por tratamiento",p.fr,"—","Bentonita, gel u otro (estimado)",{...inp,fmt:"0.00"});
   pr("Resistencia con tratamiento",F(`E${p0+3}*E${p0+4}`,p.Rt),"Ω","Valor esperado",{...val,fmt:"0.00",bold:1});
-  pr("Electrodos requeridos",F(`IF(E${p0+5}<=25,1,ROUNDUP(1.1*E${p0+5}/25,0))`,p.nVar),"unid.","Separación ≥ 2 m · Regla 060-712",{...val,fmt:"0"});
+  pr("Electrodos (varillas) en paralelo",p.nVar,"unid.","Separación ≥ longitud de varilla (mín. 2 m)",{...inp,fmt:"0"});
+  const nC=`E${p0+6}`, fx=FAGR.slice(1).reduceRight((acc,[n1,f1],i)=>{ const [n0,f0]=FAGR[i]; return `IF(${nC}<=${n1},${f0}+${+(f1-f0).toFixed(4)}*(${nC}-${n0})/${n1-n0},${acc})`; },String(FAGR[FAGR.length-1][1]));
+  pr("Factor de agrupamiento",F(`IF(${nC}<=1,1,${fx})`,p.F),"—","Varillas en paralelo (interpolado)",{...val,fmt:"0.00"});
+  pr("Resistencia del conjunto",F(`E${p0+5}*E${p0+7}/${nC}`,p.Rn),"Ω","R = Rt · F / n",{...val,fmt:"0.00",bold:1});
   pr("Conductor de puesta a tierra",r.Selec,"mm²","Cobre · Tabla 17",{...val,fmt:"0"});
-  pr("Verificación",F(`IF(E${p0+5}/E${p0+6}*IF(E${p0+6}>1,1.1,1)<=25,"CONFORME","REVISAR")`,(p.nVar>1?p.Rn:p.Rt)<=25?"CONFORME":"REVISAR"),"","R ≤ 25 Ω · Regla 060-712",{...val,bold:1});
+  pr("Verificación",F(`IF(E${p0+8}<=25,"CONFORME","REVISAR")`,p.Rn<=25?"CONFORME":"REVISAR"),"","R ≤ 25 Ω · Regla 060-712",{...val,bold:1});
   cfmt(wsM,`E${m-1}:F${m-1}`);
   m++;
   m=seccion(wsM,m,LM,"5.  VERIFICACIONES NORMATIVAS");
@@ -1349,6 +1415,7 @@ async function exportar(){
     [["Nombre",nombre],["CIP N°",""],["Firma y sello",""]].forEach(([l,v],i)=>{ const rw=m+1+i; cell(wsM,rw,c1,l,{size:8,color:K.grey,box:1,fill:K.lab}); span(wsM,rw,c1+1,c2,v,{box:1}); wsM.getRow(rw).height=i===2?42:18; }); };
   firma(1,5,"ELABORADO POR",c.proj.proy||""); firma(6,10,"REVISADO Y APROBADO POR",""); m+=5;
   nota(wsM,m,LM,`La presente memoria ha sido elaborada con JMG - ELECTRIC ${VERSION}, aplicando los criterios del Código Nacional de Electricidad – Utilización, el RNE EM.010 y las Normas DGE. Los valores obtenidos constituyen una herramienta de apoyo al diseño; su validación, adecuación a las condiciones reales de obra y firma corresponden al ingeniero proyectista responsable.`);
+
   /* ---------- UNIFILAR ---------- */
   { const LU=20, u=unifilar(r); setup(wsU,"landscape",[12,12,...Array(LU-2).fill(6.5)]);
     let q=cabecera(wsU,LU,"DIAGRAMA UNIFILAR · ESQUEMA DE DISTRIBUCIÓN Y PROTECCIÓN","Hoja 3 de 5");
@@ -1368,7 +1435,7 @@ async function exportar(){
     const t0=t;
     metrado(r).forEach(x=>{
       if(x.sec){ cell(wsT,t,1,x.cod,{bold:1,color:K.navy,fill:K.soft,box:1,h:"center"}); span(wsT,t,2,LT,x.sec,{bold:1,size:9,color:K.navy,fill:K.soft,box:1,ind:1}); wsT.getRow(t).height=18; t++; return; }
-      cell(wsT,t,1,x.cod,{...val,size:8.5}); span(wsT,t,2,5,x.desc,{box:1,ind:1,wrap:1,size:8.5}); cell(wsT,t,6,x.und,val); cell(wsT,t,7,x.cant,{...val,bold:1,fmt:"#,##0"}); cell(wsT,t,8,x.obs,{box:1,size:7.5,color:K.grey,wrap:1});
+      cell(wsT,t,1,x.cod,{...val,size:8.5}); span(wsT,t,2,5,x.desc,{box:1,ind:1,wrap:1,size:8.5}); cell(wsT,t,6,x.und,val); cell(wsT,t,7,x.cant,{...val,bold:1,fmt:"0"}); cell(wsT,t,8,x.obs,{box:1,size:7.5,color:K.grey,wrap:1});
       wsT.getRow(t).height=Math.max(16,Math.ceil(Math.max(x.desc.length/58,x.obs.length/26))*12); t++; });
     wsT.pageSetup.printTitlesRow=`${t0-1}:${t0-1}`;
     t=nota(wsT,t+1,LT,`Metrado referencial generado con JMG - ELECTRIC ${VERSION}. Protecciones, tableros, cajas y aparatos resultan del cálculo; las longitudes de conductores y tubos se estiman con la distancia a la salida más alejada más ${fmt(c.bajada,1)} m de bajada por salida y ${fmt(c.pDesp,0)} % de desperdicio. Verificar con los planos de distribución.`)+1;
@@ -1405,6 +1472,11 @@ $("results").addEventListener("change",e=>{
 });
 $("results").addEventListener("click",e=>{ if(e.target.closest("[data-balreset]")){ FIX[MODE]={}; update(); } });
 $("results").addEventListener("click",e=>{ const b=e.target.closest("[data-view]"); if(!b) return; VIEW=b.dataset.view; try{ localStorage.setItem("jmg-electric-view",VIEW); }catch(e){} update(); });
+$("btnPrint").addEventListener("click",()=>{ if(!PRINT||!LAST) return;
+  let pa=$("printArea"); if(!pa){ pa=document.createElement("div"); pa.id="printArea"; document.body.appendChild(pa); }
+  pa.innerHTML=PRINT(); pa.querySelectorAll("button,select").forEach(x=>{ if(x.tagName==="SELECT"){ const sp=document.createElement("span"); sp.textContent=x.options[x.selectedIndex]?.text||""; x.replaceWith(sp); } else x.remove(); });
+  document.body.classList.add("printing"); setTimeout(()=>window.print(),50); });
+addEventListener("afterprint",()=>{ document.body.classList.remove("printing"); const pa=$("printArea"); if(pa) pa.innerHTML=""; });
 $("btnMode").addEventListener("click",()=>setMode(MODE==="uni"?"multi":"uni"));
 $("results").addEventListener("click",async e=>{
   const b=e.target.closest("[data-dl]"); if(!b||!LAST) return;
@@ -1413,6 +1485,7 @@ $("results").addEventListener("click",async e=>{
   try{
     let blob, nombre=`JMG-ELECTRIC - Diagrama unifilar - ${nm}.${b.dataset.dl}`;
     if(b.dataset.dl==="svg") blob=new Blob([u.svg],{type:"image/svg+xml"});
+    else if(b.dataset.dl==="dxf") blob=new Blob([svgDxf(u.svg)],{type:"application/dxf"});
     else blob=await (await fetch(await svgPng(u.svg,2))).blob();
     if(downloads) await downloads.save({filename:nombre,data:blob}); else descargarLocal(blob,nombre);
   }catch(err){ if(!(err&&err.code==="declined")) console.warn(err); }
@@ -1466,7 +1539,9 @@ const nuevoId=()=>"p"+Date.now().toString(36)+Math.random().toString(36).slice(2
 function libLoad(){ try{ const o=JSON.parse(localStorage.getItem(LKEY)||"{}"); return o&&typeof o==="object"&&!Array.isArray(o)?o:{}; }catch(e){ return {}; } }
 function libSave(L){ try{ localStorage.setItem(LKEY,JSON.stringify(L)); return true; }catch(e){ return false; } }
 function estado(){ const o={app:"JMG-ELECTRIC",version:VERSION,id:PID,savedAt:new Date().toISOString(),MODE,cargas,tipos,serv,FIX,sist:radio("sist"),sistG:radio("sistG")}; KEYS.forEach(k=>o[k]=$(k).value); return o; }
+const esEjemplo=()=>/^EJEMPLO\b/.test($("p_nombre").value.trim());
 function saveDraft(){
+  if(esEjemplo()){ PID=null; try{ localStorage.setItem(SKEY,JSON.stringify(estado())); }catch(e){} return; }
   if($("p_nombre").value.trim()&&!PID) PID=nuevoId();
   const o=estado();
   try{ localStorage.setItem(SKEY,JSON.stringify(o)); }catch(e){}
@@ -1489,6 +1564,11 @@ function aplicar(o){
 function nuevoProyecto(m){
   aplicar({id:null,...DEFV,MODE:m,cargas:clon(DEF.cargas),tipos:clon(DEF.tipos),serv:clon(DEF.serv),FIX:null,sist:"mono220",sistG:"tri380"});
   setTab("calculo"); try{ $("p_nombre").focus(); }catch(e){}
+}
+function cargarEjemplo(m){
+  nuevoProyecto(m);
+  const v={p_nombre:m==="multi"?"EJEMPLO · Edificio multifamiliar de 8 departamentos":"EJEMPLO · Vivienda unifamiliar",p_prop:"Propietario de ejemplo",p_ubic:"Arequipa, Perú",p_proy:"Ing. responsable"};
+  Object.entries(v).forEach(([k,x])=>$(k).value=x); VIEW="resumen"; update(); window.scrollTo(0,0);
 }
 let DELQ=null;
 function renderProy(){
@@ -1521,11 +1601,11 @@ function herr(){
   // 1. Caída de tensión
   { const s=sist("h1_sis"), I=g("h1_I")||0, L=g("h1_L")||0, S=g("h1_S"), rho=g("h1_rho");
     const dV=s.K*rho*L*I/S, p=dV/s.V*100, smin=SECC.find(x=>s.K*rho*L*I/x/s.V*100<=2.5);
-    out("h1_out",[["Caída de tensión",`${fmt(dV,2)} V`],["Caída porcentual",`${fmt(p,2)} % ${ok(p<=2.5,"≤ 2,5 %","> 2,5 %")}`],["Sección mínima para ΔV ≤ 2,5 %",smin?`${smin} mm²`:"Mayor de 120 mm²"],["Fórmula",`ΔV = ${s.tri?"√3":"2"} · ρ · L · I / S`]]); }
+    out("h1_out",[["Caída de tensión",`${fmt(dV,2)} V`],["Caída porcentual",`${fmt(p,2)} % ${ok(p<=2.5,"≤ 2.5 %","> 2.5 %")}`],["Sección mínima para ΔV ≤ 2.5 %",smin?`${smin} mm²`:"Mayor de 120 mm²"],["Fórmula",`ΔV = ${s.tri?"√3":"2"} · ρ · L · I / S`]]); }
   // 2. Conductor e ITM
   { const I=g("h2_I")||0, nc=+$("h2_nc").value, ais=$("h2_ais").value, tab=T2[$("h2_met").value][ais+(nc===3?"3":"2")], ft=FT[ais][+$("h2_t").value]??1, fa=FA[+$("h2_ag").value]??1;
     const Id=I*FD, it=ITM.find(x=>x>=Id-1e-9), k=SECC.findIndex((S,i)=>it&&tab[i]*ft*fa>=it);
-    out("h2_out",[["Corriente de diseño (1,25 × I)",`${fmt(Id,2)} A`],["Interruptor termomagnético",it?`${nc}×${it} A`:"—"],["Sección mínima de cobre",k>=0?`${SECC[k]} mm²`:"Mayor de 120 mm²"],["Ampacidad corregida",k>=0?`${fmt(tab[k]*ft*fa,1)} A (factor ${fmt(ft*fa,2)})`:"—"],["Conductor de protección (Tabla 16)",it?`${tierraPara(it)} mm²`:"—"]]); }
+    out("h2_out",[["Corriente de diseño (1.25 × I)",`${fmt(Id,2)} A`],["Interruptor termomagnético",it?`${nc}×${it} A`:"—"],["Sección mínima de cobre",k>=0?`${SECC[k]} mm²`:"Mayor de 120 mm²"],["Ampacidad corregida",k>=0?`${fmt(tab[k]*ft*fa,1)} A (factor ${fmt(ft*fa,2)})`:"—"],["Conductor de protección (Tabla 16)",it?`${tierraPara(it)} mm²`:"—"]]); }
   // 3. Motor
   { const c=ctx(), s=sist("h3_sis"), P=(g("h3_P")||0)*($("h3_u").value==="hp"?0.746:1), eta=g("h3_eta")||0.85, fp=g("h3_fp")||0.85, L=g("h3_L")||0;
     const In=P*1000/eta/(s.kI*s.V*fp), it=ITM.find(x=>x>=1.25*In-1e-9), nc=s.tri?3:2, tab=T2[c.met][c.aisl+(nc===3?"3":"2")];
@@ -1533,8 +1613,7 @@ function herr(){
     out("h3_out",[["Potencia de entrada",`${fmt(P/eta,2)} kW`],["Corriente nominal",`${fmt(In,2)} A`],["Capacidad mínima del conductor (125 %, Regla 160-106)",`${fmt(1.25*In,2)} A`],["Interruptor termomagnético",it?`${nc}×${it} A · curva D`:"—"],["Conductor de cobre",k>=0?`${nc}-1×${SECC[k]} mm²${c.desig?" "+c.desig:""} + ${tierraPara(it)} mm² (T)`:"Mayor de 120 mm²"],["Caída de tensión",k>=0?`${fmt(s.K*c.rho*L*In/SECC[k]/s.V*100,2)} %`:"—"]]); }
   // 4. Puesta a tierra
   { const rho=g("h4_rho")||0, L=g("h4_L")||0.5, d=g("h4_d"), n=Math.max(1,Math.round(g("h4_n")||1)), fr=g("h4_fr")||1;
-    const R1=rho/(2*Math.PI*L)*(Math.log(8*L/d)-1), FT_=[[1,1],[2,1.16],[3,1.29],[4,1.36],[8,1.68],[12,1.8],[16,1.92],[20,2],[24,2.16]];
-    let F=FT_[FT_.length-1][1]; for(let i=1;i<FT_.length;i++){ if(n<=FT_[i][0]){ const [n0,f0]=FT_[i-1],[n1,f1]=FT_[i]; F=f0+(f1-f0)*(n-n0)/(n1-n0); break; } }
+    const R1=rho/(2*Math.PI*L)*(Math.log(8*L/d)-1), F=fAgr(n);
     const Rn=R1*F/n*fr;
     out("h4_out",[["Resistencia de una varilla",`${fmt(R1,2)} Ω`],["Factor de agrupamiento",`${fmt(F,2)}`],["Resistencia del conjunto",`${fmt(Rn,2)} Ω ${ok(Rn<=25,"≤ 25 Ω","> 25 Ω")}`],["Separación mínima entre varillas",`${fmt(Math.max(2,L),1)} m`]]); }
   // 5. Conversión
@@ -1569,6 +1648,7 @@ $("fileOpen").addEventListener("change",()=>{
   rd.readAsText(f);
 });
 document.querySelectorAll("[data-new]").forEach(b=>b.addEventListener("click",()=>nuevoProyecto(b.dataset.new)));
+document.querySelectorAll("[data-ej]").forEach(b=>b.addEventListener("click",()=>cargarEjemplo(b.dataset.ej)));
 $("ver").textContent=VERSION; $("verBadge").textContent=VERSION+" · Beta";
 
 const draft=loadDraft();
@@ -1591,6 +1671,9 @@ document.querySelectorAll("[data-go]").forEach(b=>b.addEventListener("click",()=
 document.querySelectorAll("[data-calc]").forEach(el=>{ el.addEventListener("input",update); el.addEventListener("change",update); });
 let tab0="inicio"; try{ tab0=localStorage.getItem("jmg-electric-tab")||"inicio"; }catch(e){}
 if(draft) aplicar(draft); else setMode(MODE);
+/* Inicio: la columna derecha acompaña el desplazamiento */
+function fijarLado(){ const el=document.querySelector(".home>:nth-child(2)"); if(!el) return; el.style.top=Math.min(12,innerHeight-el.offsetHeight-12)+"px"; }
+addEventListener("resize",fijarLado); addEventListener("load",fijarLado);
 refreshLast(); setTab(["inicio","calculo","proy","herr","normas","guia","soporte","ajustes"].includes(tab0)?tab0:"inicio");
 </script>
 </body>
