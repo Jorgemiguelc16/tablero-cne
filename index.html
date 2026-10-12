@@ -67,21 +67,31 @@
         <div class="stack">
           <div class="card intro">
             <blockquote class="quote">“El desarrollo progresivo del hombre depende vitalmente de la invención.”<cite>Nikola Tesla · <i>My Inventions</i>, Electrical Experimenter, mayo de 1919</cite></blockquote>
-            <p>JMG - ELECTRIC es una plataforma de ingeniería para el cálculo y dimensionamiento de instalaciones eléctricas interiores en baja tensión. Determina la máxima demanda según las Reglas 050-200 y 050-202 del CNE-Utilización, distribuye los circuitos derivados y selecciona conductores de cobre con la Tabla 2 del código, corregidos por temperatura ambiente y agrupamiento según el método de instalación. Coordina los interruptores termomagnéticos con la capacidad de los conductores, agrupa los interruptores diferenciales de 30 mA conforme a la Regla 150-400 y verifica la caída de tensión de alimentadores y circuitos derivados (Regla 050-102).</p>
-            <p>Complementa el diseño con la estimación de la corriente de cortocircuito y el poder de corte requerido, el balance de cargas por fase en suministros trifásicos, la potencia a contratar y la resistencia del sistema de puesta a tierra (Regla 060-712). Toda la memoria de cálculo se exporta a un libro Excel con fórmulas vinculadas, conforme al contenido que exige la Norma EM.010.</p>
-            <div class="actions">
-              <button class="btn" type="button" data-go="calculo">Realizar cálculo</button>
-              <button class="btn sec" type="button" data-go="tipo">Elegir tipo de edificación</button>
+            <p>JMG - ELECTRIC calcula y dimensiona instalaciones eléctricas interiores en baja tensión conforme al Código Nacional de Electricidad – Utilización: máxima demanda, conductores, protecciones termomagnéticas y diferenciales, caída de tensión, cortocircuito, balance de fases y puesta a tierra, con la memoria de cálculo y el diagrama unifilar listos para el expediente técnico.</p>
+            <p class="sello">Actualizado a CNE-Utilización (RM 037-2006-MEM/DM) · RNE EM.010 (2019) · Norma DGE de conexiones en BT</p>
+          </div>
+          <div class="card">
+            <h2>Proyectos</h2>
+            <div class="body">
+              <div class="proj-g">
+                <div class="pbox"><h3>Nuevo proyecto</h3><p>Inicie un cálculo nuevo con valores de partida típicos.</p><div class="acts"><button class="btn" type="button" data-new="uni">Unifamiliar</button><button class="btn" type="button" data-new="multi">Multifamiliar</button></div></div>
+                <div class="pbox"><h3>Abrir proyecto</h3><p>Cargue un proyecto guardado anteriormente (archivo .json).</p><div class="acts"><button class="btn sec" type="button" data-open>Abrir archivo</button></div></div>
+                <div class="pbox" id="lastBox"><h3>Continuar último proyecto</h3><p id="lastTxt"></p><div class="acts"><button class="btn sec" type="button" data-go="calculo">Continuar</button></div></div>
+              </div>
+              <p class="hint" id="openMsg" style="margin-top:10px"></p>
+            </div>
+          </div>
+          <div class="card">
+            <h2>Qué obtiene</h2>
+            <div class="deliv">
+              <div class="dv"><svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="5" y="3" width="18" height="22"/><path d="M9 9h10M9 13h10M9 17h6"/></svg><h3>Memoria de cálculo</h3><p>Libro Excel con fórmulas vinculadas: parámetros, máxima demanda, alimentadores, circuitos, puesta a tierra y verificaciones.</p></div>
+              <div class="dv"><svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="22" height="18"/><path d="M3 11h22M3 17h22M11 5v18M18 5v18"/></svg><h3>Cuadro de cargas</h3><p>Circuitos con conductor, interruptor, diferencial, caída de tensión y balance de fases.</p></div>
+              <div class="dv"><svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M14 2v6M5 12h18M8 12v6M14 12v6M20 12v6M14 8l-3 4"/><circle cx="14" cy="22" r="3"/></svg><h3>Diagrama unifilar</h3><p>Esquema de distribución y protección con cuadro de cargas y rótulo, en SVG, PNG y Excel.</p></div>
             </div>
           </div>
           <div class="card">
             <h2>Alcance de la plataforma</h2>
             <div class="body"><ul class="scope" id="scope"></ul></div>
-            <div class="steps">
-              <div class="step"><span class="n">PASO 1</span><h3>Elegir la edificación</h3><p>Vivienda unifamiliar o edificio multifamiliar.</p></div>
-              <div class="step"><span class="n">PASO 2</span><h3>Ingresar los datos</h3><p>Áreas, salidas, cargas especiales y sistema de suministro.</p></div>
-              <div class="step"><span class="n">PASO 3</span><h3>Exportar la memoria</h3><p>Libro Excel con cálculos vinculados y formato de expediente.</p></div>
-            </div>
           </div>
         </div>
         <div class="stack">
@@ -133,19 +143,20 @@
         <div class="projline" id="projline"></div>
         <div class="exp">
           <button class="btn" id="btnXlsx" type="button"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 2v8M4.5 6.5 8 10l3.5-3.5M2.5 13.5h11"/></svg>Exportar memoria a Excel</button>
-          <div class="exp-msg" id="expMsg">Memoria, Cálculos y Anexos con fórmulas vinculadas.</div>
+          <div class="ebtns"><button class="btn sec sm" type="button" id="btnSave">Guardar proyecto</button><button class="btn sec sm" type="button" data-open>Abrir proyecto</button></div>
+          <div class="exp-msg" id="expMsg">Memoria, Cálculos, Unifilar y Anexos con fórmulas vinculadas.</div>
         </div>
       </div>
 
       <div class="grid">
         <div class="inputs" data-calc>
           <fieldset><legend>Datos del proyecto</legend><div class="fs">
-            <label>Nombre del proyecto<input type="text" id="p_nombre" value="Vivienda unifamiliar — Urb. Los Álamos"></label>
+            <label>Nombre del proyecto<input type="text" id="p_nombre" value="" placeholder="Nombre del proyecto"></label>
             <div class="row">
-              <label>Propietario<input type="text" id="p_prop" value="—"></label>
-              <label>Ubicación<input type="text" id="p_ubic" value="Arequipa, Perú"></label>
+              <label>Propietario<input type="text" id="p_prop" value="" placeholder="Nombre del propietario"></label>
+              <label>Ubicación<input type="text" id="p_ubic" value="" placeholder="Distrito, provincia, región"></label>
             </div>
-            <label>Proyectista (Ing. responsable)<input type="text" id="p_proy" value=""></label>
+            <label>Proyectista (Ing. responsable)<input type="text" id="p_proy" value="" placeholder="Ing. responsable"></label>
           </div></fieldset>
 
           <!-- Unifamiliar -->
@@ -200,6 +211,7 @@
         </div>
 
         <div class="results" id="results"></div>
+        <input type="file" id="fileOpen" accept=".json,application/json" hidden>
       </div>
     </section>
 
@@ -241,6 +253,10 @@
             <label>Circuitos por tubería
               <select id="nag"><option selected>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option></select></label>
           </div>
+          <label>Resistividad del cobre para caída de tensión
+            <select id="rhoMode"><option value="op" selected>A temperatura de operación (PVC 70 °C: 0,0209 · XLPE 90 °C: 0,0223)</option><option value="20">A 20 °C (0,0175 Ω·mm²/m)</option></select></label>
+          <label>Designación comercial del conductor<input type="text" id="desig" list="desigList" value="NH-80"></label>
+          <datalist id="desigList"><option value="NH-80"><option value="TW-80"><option value="THW-90"><option value="LSOHX-90"><option value="N2XOH"></datalist>
           <div class="row">
             <label>Sección mín. derivados
               <select id="sminD"><option value="1.5">1,5 mm²</option><option value="2.5" selected>2,5 mm²</option><option value="4">4 mm²</option></select></label>
@@ -252,7 +268,7 @@
           <label>Esquema de interruptores diferenciales
             <select id="idMode"><option value="grupo" selected>Un diferencial por cada grupo de 3 circuitos (150-400(8))</option><option value="circuito">Un diferencial por circuito (150-400(9))</option></select></label>
           <label>Corriente de cortocircuito en el punto de entrega (kA)<input type="number" id="iccE" step="0.5" min="0.5" value="10"></label>
-          <p class="hint">Valor que proporciona la concesionaria (Norma DGE, 110.F). Si no se conoce, se adopta un valor conservador.</p>
+          <p class="hint">Valor que proporciona la concesionaria (Norma DGE, 110.F). Si no se conoce, se adopta un valor conservador. Los circuitos de motores se protegen con interruptores de curva D (Regla 160-200).</p>
         </div></fieldset>
         <fieldset><legend>Caída de tensión <small>050-102</small></legend><div class="fs">
           <label>ΔV asignada al alimentador general (multifamiliar)
@@ -278,7 +294,7 @@
       </div>
     </section>
 
-    <div class="pie"><span>Resultados de referencia para el proyectista. La responsabilidad del diseño recae en el ingeniero colegiado que suscribe el expediente.</span><span>JMG - ELECTRIC · Jorge Miguel Condori Huayllani</span></div>
+    <div class="pie"><span>Resultados de referencia para el proyectista. La responsabilidad del diseño recae en el ingeniero colegiado que suscribe el expediente.</span><span>JMG - ELECTRIC <span id="ver"></span> · Jorge Miguel Condori Huayllani</span></div>
   </main>
 </div>
 
@@ -304,7 +320,7 @@ const TUBOS=[[20,"3/4\"",19],[25,"1\"",24],[35,"1 1/4\"",32],[40,"1 1/2\"",38],[
 const TIPOS={calentador:"Calentador de agua / ducha (100 %)",cocina:"Cocina eléctrica",aire:"Aire acondicionado (100 %)",motor:"Motor (bomba, etc.)",otra:"Otra carga"};
 const TSERV={alum:"Alumbrado / tomacorrientes",motor:"Motor",otra:"Otra carga"};
 const RHO_CU=0.0175, FD=1.25, DV_ALIM=2.5, DV_DER=2.5, DV_TOT=4, IMIN_UNI=40, IMIN_DPTO=25;
-const SQ3=Math.sqrt(3);
+const SQ3=Math.sqrt(3), VERSION="v1.2";
 const SIST={mono220:{tri:false,V:220,kI:1,K:2,n:2,txt:"1φ 220 V",nom:"Monofásico 220 V",fases:["—"]},
             tri220:{tri:true,V:220,kI:SQ3,K:SQ3,n:3,txt:"3φ 220 V",nom:"Trifásico 220 V",fases:["R-S","S-T","T-R"]},
             tri380:{tri:true,V:380,kI:SQ3,K:SQ3,n:4,txt:"3φ 380/220 V",nom:"Trifásico 380/220 V",fases:["R","S","T"]}};
@@ -331,10 +347,12 @@ const CRITERIOS=[
   "El interruptor se elige igual o mayor que la corriente de diseño y menor o igual que la ampacidad corregida del conductor.",
   "La ampacidad se toma de la Tabla 2 según el método de instalación y se corrige por temperatura (Tabla 5A) y por agrupamiento (Tabla 5C).",
   "La sección se incrementa hasta cumplir la ampacidad y la caída de tensión: 2,5 % en alimentadores, 2,5 % en derivados y 4 % total.",
+  "La caída de tensión se calcula con la resistividad del cobre a la temperatura de operación del conductor (70 °C en PVC, 90 °C en XLPE); el cortocircuito, con la resistividad a 20 °C, que da la corriente más alta.",
+  "Los circuitos de motores tienen conductores de capacidad no menor al 125 % de la corriente a plena carga (Regla 160-106) y se protegen con interruptores de curva D por la corriente de arranque (Regla 160-200, Tabla 29).",
   "En edificios, las unidades se ordenan de mayor a menor carga para aplicar los factores 100 / 65 / 40 / 30 / 25 %; el aire acondicionado se suma al 100 % y las cargas comunes al 75 %.",
   "En «otras cargas mayores de 1 500 W» de la Regla 050-202, sin cocina, se adopta el mismo criterio de la Regla 050-200: 100 % hasta 6 kW y 25 % del exceso.",
   "El cortocircuito se estima desde la corriente del punto de entrega sumando la resistencia de los conductores; el poder de corte se elige igual o mayor.",
-  "El balance de fases reparte las cargas monofásicas en la fase menos cargada; se recomienda un desbalance no mayor de 10 % como criterio de diseño."];
+  "El balance de fases busca el reparto de cargas monofásicas con el menor desbalance posible; el proyectista puede fijar la fase de cualquier carga. Se recomienda un desbalance no mayor de 10 % como criterio de diseño."];
 const DOCS=["Certificado de factibilidad de suministro (multifamiliar u otros usos).","Memoria descriptiva: ubicación, áreas libre y techada, proyectista, normativa y criterios técnicos.","Memoria de cálculo: circuitos, iluminación, protecciones, puesta a tierra y otras cargas.","Especificaciones técnicas de materiales y equipos (NTP, IEC).","Planos: esquema unifilar con potencia instalada, demanda máxima, potencia contratada, tensión, capacidad de ruptura y número de fases.","Cuadro de cargas, plano de puesta a tierra y detalles del banco de medidores.","Rótulo con nombre, registro CIP, firma y sello del ingeniero responsable.","Pruebas técnicas al finalizar la obra."];
 
 /* ================= Datos editables (listas) ================= */
@@ -360,7 +378,7 @@ const esc=s=>String(s??"").replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(
 const fmt=(x,d=2)=>Number.isFinite(x)?x.toLocaleString("es-PE",{minimumFractionDigits:d,maximumFractionDigits:d}):"—";
 const radio=n=>document.querySelector(`input[name="${n}"]:checked`)?.value;
 
-function readList(name){ const L=LISTS[name]; L.arr.forEach((it,i)=>L.f.forEach(f=>{const el=$(`${name}_${f.k}_${i}`); if(!el)return; it[f.k]=f.t==="number"?(parseFloat(el.value)||0):(f.k==="fases"?+el.value:el.value);})); }
+function readList(name){ const L=LISTS[name]; L.arr.forEach((it,i)=>L.f.forEach(f=>{const el=$(`${name}_${f.k}_${i}`); if(!el)return; it[f.k]=f.t==="number"?(parseFloat(el.value)||0):(f.k==="fases"?+el.value:el.value.replace(/[<>]/g,""));})); }
 function renderList(name){
   const L=LISTS[name], box=$("L_"+name); box.innerHTML="";
   L.arr.forEach((it,i)=>{
@@ -386,7 +404,10 @@ function ctx(){
   return {aisl,temp,nag,met,ft,fa,fc:ft*fa,fp:num("fp")||0.9,maxSal:Math.max(1,Math.min(12,Math.round(num("maxSal")||12))),pAl:num("pAl"),pTo:num("pTo"),
     reserva:+$("reserva").value, sminD:parseFloat($("sminD").value), sminA:parseFloat($("sminA").value), idMode:$("idMode").value, dvGen:parseFloat($("dvGen").value), iccE:num("iccE")||10,
     proj:{nombre:$("p_nombre").value,prop:$("p_prop").value,ubic:$("p_ubic").value,proy:$("p_proy").value},
-    pat:{rho:num("rho_s")||100,fr:num("fr")||1,Lv:num("Lv")||2.4,dv:parseFloat($("dv").value)}};
+    pat:{rho:num("rho_s")||100,fr:num("fr")||1,Lv:num("Lv")||2.4,dv:parseFloat($("dv").value)},
+    rho:$("rhoMode").value==="20"?RHO_CU:(aisl==="pvc"?0.0209:0.0223),
+    rhoRef:$("rhoMode").value==="20"?"Cobre a 20 °C":(aisl==="pvc"?"Cobre a 70 °C · ρ20 (1 + 0,00393·50)":"Cobre a 90 °C · ρ20 (1 + 0,00393·70)"),
+    desig:$("desig").value.replace(/[<>]/g,"").trim()};
 }
 const tierraPara=itm=>(T16.find(([a])=>itm<=a)||[0,25])[1];
 const tierraElectrodo=amp=>T17.find(([a])=>amp<=a)[1];
@@ -398,13 +419,13 @@ function tuboPara(S,St,ncond){
 }
 function dimensionar({I,K,L,V,cargados,c,fc,dvMax,Smin,Imin=0}){
   const Id=Math.max(I*FD,Imin), itm=ITM.find(x=>x>=Id-1e-9)??null;
-    const key=c.aisl+(cargados===3?"3":"2"), tabla=T2[c.met][key], col=(c.aisl==="pvc"?0:2)+(cargados===3?1:0);
+  const key=c.aisl+(cargados===3?"3":"2"), tabla=T2[c.met][key], col=(c.aisl==="pvc"?0:2)+(cargados===3?1:0);
   for(let k=0;k<SECC.length;k++){
     const S=SECC[k]; if(S<Smin) continue;
-    const Iz=tabla[k], Izc=Iz*fc, dV=K*RHO_CU*L*I/S, dVp=dV/V*100;
+    const Iz=tabla[k], Izc=Iz*fc, dV=K*c.rho*L*I/S, dVp=dV/V*100;
     if(itm!==null&&Izc>=itm&&dVp<=dvMax+1e-9) return {Id,itm,col,S,Iz,Izc,dV,dVp,Imin};
   }
-  const k=SECC.length-1, S=SECC[k], dV=K*RHO_CU*L*I/S;
+  const k=SECC.length-1, S=SECC[k], dV=K*c.rho*L*I/S;
   return {Id,itm,col,S,Iz:tabla[k],Izc:tabla[k]*fc,dV,dVp:dV/V*100,Imin,fail:true};
 }
 function alimentador(desc,P,sk,L,dvUp,dvSel,c,extra={}){
@@ -419,7 +440,8 @@ function circuito({tab,id,desc,tipo,n,P,L,fases,skTri},c,dvUp,feeder){
   const s=fases===3&&skTri&&SIST[skTri].tri?SIST[skTri]:SIST.mono220, f3=s.tri;
   const I=P/(s.kI*s.V*c.fp);
   const r=dimensionar({I,K:s.K,L,V:s.V,cargados:f3?3:2,c,fc:c.fc,dvMax:Math.min(DV_DER,DV_TOT-dvUp),Smin:c.sminD});
-  Object.assign(r,{tab,id,desc,tipo,n,P,L,s,I,dvUp,dVt:dvUp+r.dVp,feeder,f3,fase:f3?"3φ":"—"});
+  const motor=/^motor/i.test(tipo||"");
+  Object.assign(r,{tab,id,desc,tipo,n,P,L,s,I,dvUp,dVt:dvUp+r.dVp,feeder,f3,fase:f3?"3φ":"—",motor,curva:motor?"D":"C",key:`${tab}·${id}`});
   r.St=tierraPara(r.itm||400); r.tubo=tuboPara(r.S,r.St,f3?3:2);
   r.ok=!r.fail&&r.itm!==null&&r.Izc>=r.itm&&r.dVp<=DV_DER+1e-9&&r.dVt<=DV_TOT+1e-9;
   return r;
@@ -452,13 +474,42 @@ function pozo(p){
 }
 // Cortocircuito aguas abajo de un conductor (estimación conservadora: impedancia de la fuente inductiva + resistencia del cable)
 function iccAbajo(iccUp,s,L,S){ const k=s.tri?SQ3:1, Zup=s.V/(k*iccUp*1000), Rc=(s.tri?1:2)*RHO_CU*L/S; return s.V/(k*Math.hypot(Zup,Rc))/1000; }
-function balancear(items,sk){
+// Reparto óptimo de cargas monofásicas entre tres fases (búsqueda exhaustiva o mejora local)
+function optimo(P,base){
+  const n=P.length, idx=P.map((_,i)=>i).sort((a,b)=>P[b]-P[a]), ph=base.slice(), asg=new Array(n).fill(0);
+  const sc=v=>{ const mx=Math.max(...v); return mx+(mx-Math.min(...v))*1e-6; };
+  let best=null;
+  if(n<=10){
+    let bestS=Infinity;
+    const rec=d=>{
+      if(Math.max(...ph)>=bestS) return;
+      if(d===n){ const v=sc(ph); if(v<bestS){ bestS=v; best=asg.slice(); } return; }
+      const i=idx[d], seen=[];
+      for(let k=0;k<3;k++){ if(seen.includes(ph[k])) continue; seen.push(ph[k]); ph[k]+=P[i]; asg[i]=k; rec(d+1); ph[k]-=P[i]; }
+    };
+    rec(0);
+  } else {
+    idx.forEach(i=>{ const k=ph.indexOf(Math.min(...ph)); ph[k]+=P[i]; asg[i]=k; });
+    let mejora=true, it=0;
+    while(mejora&&it++<400){ mejora=false; const s0=sc(ph);
+      for(let i=0;i<n&&!mejora;i++) for(let k=0;k<3&&!mejora;k++){ const a=asg[i]; if(k===a) continue; ph[a]-=P[i]; ph[k]+=P[i]; if(sc(ph)<s0-1e-9){ asg[i]=k; mejora=true; } else { ph[k]-=P[i]; ph[a]+=P[i]; } }
+      for(let i=0;i<n&&!mejora;i++) for(let j=i+1;j<n&&!mejora;j++){ const a=asg[i], b=asg[j]; if(a===b) continue; const d=P[j]-P[i]; ph[a]+=d; ph[b]-=d; if(sc(ph)<s0-1e-9){ asg[i]=b; asg[j]=a; mejora=true; } else { ph[a]-=d; ph[b]+=d; } }
+    }
+    best=asg.slice();
+  }
+  best=best||[]; const out=base.slice(); best.forEach((k,i)=>out[k]+=P[i]);
+  return {asg:best,ph:out};
+}
+const desbal=ph=>{ const avg=(ph[0]+ph[1]+ph[2])/3; return avg>0?(Math.max(...ph)-avg)/avg*100:0; };
+function balancear(items,sk,fix){
   const s=SIST[sk]; if(!s.tri) return null;
-  const nm=s.fases, ph=[0,0,0];
-  items.filter(i=>i.f3).forEach(i=>{ ph[0]+=i.P/3; ph[1]+=i.P/3; ph[2]+=i.P/3; i.fase="3φ"; });
-  items.filter(i=>!i.f3).sort((a,b)=>b.P-a.P).forEach(i=>{ const k=ph.indexOf(Math.min(...ph)); ph[k]+=i.P; i.fase=nm[k]; });
-  const avg=(ph[0]+ph[1]+ph[2])/3, mx=Math.max(...ph);
-  return {nm,ph,avg,desb:avg>0?(mx-avg)/avg*100:0};
+  const nm=s.fases, tri3=items.filter(i=>i.f3), mono=items.filter(i=>!i.f3), base=[0,0,0];
+  tri3.forEach(i=>{ for(let k=0;k<3;k++) base[k]+=i.P/3; i.fase="3φ"; i.fijo=false; });
+  const b=base.slice(), libre=[]; let nFix=0;
+  mono.forEach(i=>{ const k=nm.indexOf(fix?fix[i.key]:undefined); i.fijo=k>=0; if(k>=0){ b[k]+=i.P; i.fase=nm[k]; nFix++; } else libre.push(i); });
+  const o=optimo(libre.map(i=>i.P),b); libre.forEach((i,j)=>{ i.fase=nm[o.asg[j]]; });
+  const ref=nFix?optimo(mono.map(i=>i.P),base).ph:o.ph, ph=o.ph;
+  return {nm,ph,avg:(ph[0]+ph[1]+ph[2])/3,desb:desbal(ph),desbMin:desbal(ref),nFix,items,mayor:mono.slice().sort((a,b)=>b.P-a.P)[0]||null};
 }
 
 function calcUni(c){
@@ -472,7 +523,7 @@ function calcUni(c){
   const circ=grupos([{...g.al,desc:"Alumbrado",tipo:"Alumbrado"},{...g.tg,desc:"Tomacorrientes",tipo:"Tomacorriente"},{...g.tc,desc:"Tomacorrientes cocina / lavandería",tipo:"Tomacorriente"}],c,"TG",al.dVp,0);
   cs.filter(x=>x.p>0).forEach(x=>circ.push(circuito({tab:"TG",id:"C-"+(circ.length+1),desc:x.nombre,tipo:TIPOS[x.tipo].split(" (")[0],n:1,P:x.p,L:x.L||1,fases:x.fases,skTri:sk},c,al.dVp,0)));
   asignarID(circ,c);
-  const bal=balancear(circ,sk);
+  const bal=balancear(circ,sk,FIX.uni);
   al.iccO=c.iccE; al.pdc=pdcPara(c.iccE);
   const iccTG=iccAbajo(c.iccE,al.s,al.L,al.S);
   const tabs=[{tab:"TG",desc:"Tablero general de la vivienda",feeder:0,icc:iccTG,pdc:pdcPara(iccTG)}];
@@ -511,8 +562,9 @@ function calcMulti(c){
       .forEach(([d,p,tp])=>{ if(p>0) list.push(circuito({tab:t.tab,id:"C-"+(list.length+1),desc:d,tipo:tp,n:1,P:p,L:t.Lc||1,fases:1},c,up,fi)); });
     asignarID(list,c); circ.push(...list);
   });
-  const balItems=[...units.map(u=>({...u})),...circ.filter(q=>q.tab==="TSG").map(q=>({ref:q.desc,P:q.P,f3:q.f3}))];
-  const bal=balancear(balItems,sk); if(bal) bal.items=balItems;
+  circ.filter(q=>q.tab==="TSG").forEach(q=>{ q.ref=`${q.id} · ${q.desc}`; });
+  const balItems=[...units.map(u=>({...u,key:u.ref})),...circ.filter(q=>q.tab==="TSG")];
+  const bal=balancear(balItems,sk,FIX.multi);
   const emerg=SV.some(s=>/emergencia/i.test(s.nombre));
   const CI=T.reduce((s,t)=>s+t.cant*(t.nAl*c.pAl+t.nTo*c.pTo+t.coc+t.cal+t.aire+t.otras),0)+Pserv;
   return {mode:"multi",iccTG,c,sk,T,units,tramos,mdDeptos,aireTot,SV,Pserv,mdServ,maxMot,MD,CI,alims,circ,tabs,bal,emerg,pat:pozo(c.pat),
@@ -523,7 +575,7 @@ function alertas(r){
   A.push([r.alims.every(a=>a.ok)&&r.circ.every(q=>q.ok),"050-102 · 050-104",r.alims.every(a=>a.ok)&&r.circ.every(q=>q.ok)?`Alimentadores y circuitos conformes. Caída de tensión máxima total ${fmt(maxDV,2)} %.`:"Existen alimentadores o circuitos que no cumplen ampacidad o caída de tensión: revise longitudes o secciones."]);
   A.push([r.pat.ok,"060-712",r.pat.ok?`Resistencia de puesta a tierra estimada ${fmt(r.pat.Rt,1)} Ω ≤ 25 Ω.`:`Resistencia estimada ${fmt(r.pat.Rt,1)} Ω > 25 Ω: se requieren ${r.pat.nVar} electrodos separados al menos 2 m (≈ ${fmt(r.pat.Rn,1)} Ω).`]);
   if(!r.pat.okL||!r.pat.okD) A.push([false,"060-702",`La varilla debe tener al menos 2 m de longitud y 13 mm de diámetro (cobre) o 16 mm (acero-cobre).`]);
-  if(r.bal) A.push([r.bal.desb<=10,"Balance de fases",`Desbalance de cargas ${fmt(r.bal.desb,1)} % ${r.bal.desb<=10?"(≤ 10 %, criterio de diseño)":"(> 10 %): redistribuya cargas entre fases"}.`]);
+  if(r.bal){ const b=r.bal; A.push([b.desb<=10?true:"warn","Balance de fases",b.desb<=10?`Desbalance de cargas ${fmt(b.desb,1)} % (≤ 10 %, criterio de diseño).`:b.desb<=b.desbMin+0.05?`Desbalance de cargas ${fmt(b.desb,1)} %: es el mínimo alcanzable con estas cargas (criterio de diseño ≤ 10 %). ${sugerencia(r)}`:`Desbalance de cargas ${fmt(b.desb,1)} % con el reparto manual; el reparto automático lograría ${fmt(b.desbMin,1)} %.`]); }
   else if(r.mode==="uni"&&r.md.MD>8000) A.push([true,"050-106(9)",`Máxima demanda de ${fmt(r.md.MD/1000,2)} kW en suministro monofásico: evalúe un suministro trifásico 380/220 V con la concesionaria.`]);
   if(r.mode==="multi") A.push([r.emerg,"EM.010 · Art. 11.1",r.emerg?"Incluye iluminación de emergencia en rutas de evacuación.":"Los edificios multifamiliares deben contar con iluminación de emergencia en rutas de evacuación: agréguela en servicios generales."]);
   A.push([true,"EM.010 · Art. 9",`Se prevén ${r.c.reserva} espacio(s) de reserva por tablero para ampliaciones.`]);
@@ -532,13 +584,17 @@ function alertas(r){
 
 /* ================= Presentación ================= */
 const pill=(ok,yes="Cumple",no="No cumple")=>`<span class="pill ${ok?"ok":"bad"}">${ok?yes:no}</span>`;
-const condTxt=(n,S)=>`${n}-1×${S} mm²`;
-let MODE="uni", TAB="inicio", LAST=null;
+const pillS=(st,t)=>`<span class="pill ${st}">${t}</span>`;
+const condTxt=(n,S,c)=>`${n}-1×${S} mm²${c&&c.desig?" "+c.desig:""}`;
+const sugerencia=r=>{ const m=r.bal&&r.bal.mayor; if(!m||r.bal.desbMin<=10) return "";
+  return r.mode==="uni"?`Sugerencia: divida el circuito ${m.id} (${m.desc}, ${fmt(m.P,0)} W) en dos circuitos o aliméntelo como carga trifásica.`
+    :`Sugerencia: el reparto está limitado por unidades de gran carga (${m.ref||m.desc}, ${fmt(m.P,0)} W); evalúe un suministro trifásico para ellas o redistribuya las cargas comunes.`; };
+let MODE="uni", TAB="inicio", LAST=null, FIX={uni:{},multi:{}};
 
 function tablaAlims(r,nro){
   return `<section class="card"><h2><span><span class="num">${nro}</span>Alimentadores</span><span class="ref">050-102 · 050-104 · Tabla 2</span></h2>
   <div class="tbl-wrap"><table><thead><tr><th class="t">Alimentador</th>${r.mode==="multi"?"<th>Cant.</th>":""}<th>P (kW)</th><th>Sistema</th><th>I (A)</th><th>Id (A)</th><th>ITM</th><th>PdC</th><th>Conductor Cu</th><th>Iz corr. (A)</th><th>L (m)</th><th>ΔV %</th><th>ΔV acum. %</th><th>Tierra</th><th>Tubo</th><th class="t">Estado</th></tr></thead><tbody>
-  ${r.alims.map(a=>`<tr><td class="t">${a.desc}</td>${r.mode==="multi"?`<td>${a.cant??1}</td>`:""}<td>${fmt(a.P/1000,2)}</td><td>${a.s.txt}</td><td>${fmt(a.I,2)}</td><td>${fmt(a.Id,2)}${a.Imin&&a.Id===a.Imin?"*":""}</td><td>${a.s.tri?3:2}×${a.itm??"—"} A</td><td>${a.pdc??"—"} kA</td><td>${condTxt(a.s.n,a.S)}</td><td>${fmt(a.Izc,1)}</td><td>${fmt(a.L,1)}</td><td>${fmt(a.dVp,2)}</td><td>${fmt(a.dvAc,2)}</td><td>${a.St} mm²</td><td>${a.tubo.mm?a.tubo.mm+" mm":a.tubo.pul}</td><td class="t">${pill(a.ok,"Cumple","Revisar")}</td></tr>`).join("")}
+  ${r.alims.map(a=>`<tr><td class="t">${a.desc}</td>${r.mode==="multi"?`<td>${a.cant??1}</td>`:""}<td>${fmt(a.P/1000,2)}</td><td>${a.s.txt}</td><td>${fmt(a.I,2)}</td><td>${fmt(a.Id,2)}${a.Imin&&a.Id===a.Imin?"*":""}</td><td>${a.s.tri?3:2}×${a.itm??"—"} A</td><td>${a.pdc??"—"} kA</td><td>${condTxt(a.s.n,a.S,r.c)}</td><td>${fmt(a.Izc,1)}</td><td>${fmt(a.L,1)}</td><td>${fmt(a.dVp,2)}</td><td>${fmt(a.dvAc,2)}</td><td>${a.St} mm²</td><td>${a.tubo.mm?a.tubo.mm+" mm":a.tubo.pul}</td><td class="t">${pill(a.ok,"Cumple","Revisar")}</td></tr>`).join("")}
   </tbody></table></div><div class="body"><p class="hint">* Corriente mínima del código: ${r.mode==="uni"?"40 A (050-200(1)(b))":"25 A por departamento (050-202(1)(b))"}. PdC: poder de corte mínimo del interruptor.</p></div></section>`;
 }
 function tablaCircuitos(r,nro){
@@ -546,22 +602,31 @@ function tablaCircuitos(r,nro){
   r.tabs.forEach(tb=>{
     const f=r.alims[tb.feeder], cs=r.circ.filter(c=>c.tab===tb.tab);
     rows+=`<tr class="grp"><td colspan="${tri?17:16}">Tablero ${tb.tab} — ${tb.desc} · ΔV aguas arriba ${fmt(f.dvAc,2)} % · Icc ${fmt(tb.icc,2)} kA · PdC mínimo ${tb.pdc} kA</td></tr>`;
-    cs.forEach(c=>{ rows+=`<tr><td class="t"><strong>${c.id}</strong></td><td class="t">${esc(c.desc)}</td><td>${c.n}</td><td>${fmt(c.P,0)}</td><td>${c.f3?"3φ":"1φ"}</td>${tri?`<td>${c.fase}</td>`:""}<td>${fmt(c.I,2)}</td><td>${fmt(c.Id,2)}</td><td>${c.f3?3:2}×${c.itm??"—"} A</td><td>${condTxt(c.f3?3:2,c.S)}</td><td>${fmt(c.Izc,1)}</td><td>${fmt(c.L,0)}</td><td>${fmt(c.dVp,2)}</td><td>${fmt(c.dVt,2)}</td><td>${c.St} mm²</td><td class="t">${c.idName} · ${c.f3?4:2}×${c.idRat} A · 30 mA</td><td class="t">${pill(c.ok,"OK","Revisar")}</td></tr>`; });
+    cs.forEach(c=>{ rows+=`<tr><td class="t"><strong>${c.id}</strong></td><td class="t">${esc(c.desc)}</td><td>${c.n}</td><td>${fmt(c.P,0)}</td><td>${c.f3?"3φ":"1φ"}</td>${tri?`<td>${c.fase}</td>`:""}<td>${fmt(c.I,2)}</td><td>${fmt(c.Id,2)}</td><td>${c.f3?3:2}×${c.itm??"—"} A · ${c.curva}</td><td>${condTxt(c.f3?3:2,c.S,r.c)}</td><td>${fmt(c.Izc,1)}</td><td>${fmt(c.L,0)}</td><td>${fmt(c.dVp,2)}</td><td>${fmt(c.dVt,2)}</td><td>${c.St} mm²</td><td class="t">${c.idName} · ${c.f3?4:2}×${c.idRat} A · 30 mA</td><td class="t">${pill(c.ok,"OK","Revisar")}</td></tr>`; });
     const pre=tb.tab==="TSG"?"S-":"C-";
     for(let i=1;i<=r.c.reserva;i++) rows+=`<tr class="res"><td class="t">${pre}${cs.length+i}</td><td class="t">Reserva</td><td colspan="${tri?15:14}"></td></tr>`;
   });
   const allOk=r.circ.every(c=>c.ok);
   return `<section class="card"><h2><span><span class="num">${nro}</span>Cuadro de cargas — circuitos derivados</span><span class="ref">${allOk?pill(true,"Todos cumplen"):pill(false,"","Revisar observaciones")}</span></h2>
   <div class="tbl-wrap"><table><thead><tr><th class="t">Circ.</th><th class="t">Descripción</th><th>Salidas</th><th>P (W)</th><th>Fases</th>${tri?"<th>Fase</th>":""}<th>I (A)</th><th>Id (A)</th><th>ITM</th><th>Conductor Cu</th><th>Iz corr. (A)</th><th>L (m)</th><th>ΔV %</th><th>ΔV total %</th><th>Tierra</th><th class="t">Diferencial</th><th class="t">Estado</th></tr></thead><tbody>${rows}</tbody></table></div>
-  <div class="body"><p class="hint">Conductores según Tabla 2, método ${r.c.met}; corrección ${fmt(r.c.ft,2)} (temperatura) × ${fmt(r.c.fa,2)} (agrupamiento) = ${fmt(r.c.fc,2)}. Diferenciales: ${r.c.idMode==="grupo"?"uno por cada grupo de tres circuitos (150-400(8))":"uno por circuito (150-400(9))"}.</p></div></section>`;
+  <div class="body"><p class="hint">Conductores según Tabla 2, método ${r.c.met}; corrección ${fmt(r.c.ft,2)} (temperatura) × ${fmt(r.c.fa,2)} (agrupamiento) = ${fmt(r.c.fc,2)}. Diferenciales: ${r.c.idMode==="grupo"?"uno por cada grupo de tres circuitos (150-400(8))":"uno por circuito (150-400(9))"}. ITM curva C en circuitos generales${r.circ.some(q=>q.motor)?"; curva D en circuitos de motores, con conductor al 125 % de la corriente a plena carga (Reglas 160-106 y 160-200)":""}.</p></div></section>`;
 }
 function cardBalance(r,nro){
   if(!r.bal) return "";
-  const b=r.bal, mx=Math.max(...b.ph);
-  return `<section class="card"><h2><span><span class="num">${nro}</span>Balance de cargas por fase</span><span class="ref">${pill(b.desb<=10,`Desbalance ${fmt(b.desb,1)} %`,`Desbalance ${fmt(b.desb,1)} %`)}</span></h2><div class="tbl-wrap"><table>
-  <thead><tr><th class="t">Fase</th><th>Potencia asignada (W)</th><th>Participación</th><th class="t">Cargas asignadas</th></tr></thead><tbody>
-  ${b.nm.map((n,i)=>{ const its=(r.mode==="uni"?r.circ:b.items).filter(q=>q.fase===n).map(q=>r.mode==="uni"?q.id:q.ref); return `<tr><td class="t"><strong>${n}</strong></td><td>${fmt(b.ph[i],0)}</td><td>${fmt(b.ph[i]/(b.ph[0]+b.ph[1]+b.ph[2])*100,1)} %</td><td class="t" style="white-space:normal">${its.join(", ")||"—"}${(r.mode==="uni"?r.circ:b.items).some(q=>q.fase==="3φ")?" · cargas trifásicas repartidas":""}</td></tr>`; }).join("")}
-  <tr class="total"><td class="t">Promedio</td><td>${fmt(b.avg,0)}</td><td></td><td class="t">Desbalance = (fase más cargada − promedio) / promedio</td></tr></tbody></table></div></section>`;
+  const b=r.bal, tot=(b.ph[0]+b.ph[1]+b.ph[2])||1, mx=Math.max(...b.ph)||1, st=b.desb<=10?"ok":"warn";
+  const lab=i=>i.ref||`${i.id} · ${i.desc}`, fx=FIX[r.mode]||{};
+  const bars=b.nm.map((n,k)=>`<div class="ph"><b>${n}</b><span class="bar"><i style="width:${(b.ph[k]/mx*100).toFixed(1)}%"></i></span><span>${fmt(b.ph[k],0)} W · ${fmt(b.ph[k]/tot*100,1)} %</span></div>`).join("");
+  const msg=b.desb<=10?`Desbalance de ${fmt(b.desb,1)} %: dentro del criterio de diseño (≤ 10 %).`
+    :b.desb<=b.desbMin+0.05?`Con estas cargas el menor desbalance posible es ${fmt(b.desbMin,1)} %. ${sugerencia(r)}`
+    :`El reparto manual da ${fmt(b.desb,1)} %; el reparto automático lograría ${fmt(b.desbMin,1)} %. ${sugerencia(r)}`;
+  const rows=b.items.map(i=>{
+    if(i.f3) return `<tr><td class="t">${esc(lab(i))}</td><td>${fmt(i.P,0)}</td><td>3φ</td><td class="t"><span class="hint">Repartida en las tres fases</span></td></tr>`;
+    const f=fx[i.key]||"";
+    return `<tr${i.fijo?' class="fix"':""}><td class="t">${esc(lab(i))}</td><td>${fmt(i.P,0)}</td><td><strong>${i.fase}</strong></td><td class="t"><select class="fsel" data-fase="${esc(i.key)}" aria-label="Fase de ${esc(lab(i))}"><option value="">Automático</option>${b.nm.map(n=>`<option value="${n}"${f===n?" selected":""}>Fijar en ${n}</option>`).join("")}</select></td></tr>`; }).join("");
+  return `<section class="card"><h2><span><span class="num">${nro}</span>Balance de cargas por fase</span><span class="ref">${pillS(st,`Desbalance ${fmt(b.desb,1)} %`)}</span></h2>
+  <div class="body"><div class="phases">${bars}</div><p class="balmsg ${st}">${msg}</p>${b.nFix?`<button type="button" class="btn sec sm" data-balreset>Restablecer automático</button>`:""}</div>
+  <div class="tbl-wrap"><table><thead><tr><th class="t">Carga</th><th>Potencia (W)</th><th>Fase</th><th class="t">Asignación</th></tr></thead><tbody>${rows}</tbody></table></div>
+  <div class="body"><p class="hint">«Automático» busca el reparto con el menor desbalance posible. Fije la fase de una carga y el resto se reacomoda alrededor. Desbalance = (fase más cargada − promedio) / promedio.</p></div></section>`;
 }
 function cardSuministro(r,nro){
   const a0=r.alims[0], md=r.mode==="uni"?r.md.MD:r.MD;
@@ -579,7 +644,7 @@ function cardPozo(r,nro){
   <dt>Conductor de puesta a tierra</dt><dd>${r.Selec} mm² Cu</dd></dl></div></section>`;
 }
 function cardAlertas(r,nro){
-  return `<section class="card"><h2><span><span class="num">${nro}</span>Verificaciones normativas</span></h2><div class="body"><ul class="alerts">${alertas(r).map(([ok,ref,t])=>`<li class="${ok?"ok":"bad"}"><b>${ref}</b><span>${t}</span></li>`).join("")}</ul></div></section>`;
+  return `<section class="card"><h2><span><span class="num">${nro}</span>Verificaciones normativas</span></h2><div class="body"><ul class="alerts">${alertas(r).map(([ok,ref,t])=>`<li class="${ok===true?"ok":ok==="warn"?"warn":"bad"}"><b>${ref}</b><span>${t}</span></li>`).join("")}</ul></div></section>`;
 }
 /* ================= Diagrama unifilar ================= */
 function unifilar(r){
@@ -596,7 +661,7 @@ function unifilar(r){
   const wrap=(t,n)=>{ const out=[]; let ln=""; String(t).split(/\s+/).forEach(w=>{ if((ln+" "+w).trim().length>n&&ln){ out.push(ln); ln=w; } else ln=(ln+" "+w).trim(); }); if(ln) out.push(ln);
     if(out.length>3){ out.length=3; out[2]=out[2].slice(0,n-1)+"…"; } return out; };
   const tub=t=>t.mm?`Ø${t.mm} mm`:t.pul;
-  const cond=(n,S,St)=>`${n}-1×${S} + 1×${St}(T) mm²`;
+  const cond=(n,S,St)=>`${n}-1×${S} + 1×${St}(T) mm²${c.desig?" "+c.desig:""}`;
 
   // Tablero con sus circuitos derivados
   function panel(X,Y,tb,{entrada=true,pat=false}={}){
@@ -627,12 +692,12 @@ function unifilar(r){
       L(x,yb+100,x,yb+282,1.3,res?GR:INK,res?"4 3":null); arrow(x,yb+292);
       if(res){ T(x+12,yb+92,"ITM",{s:8,f:GR}); T(x-5,yb+276,"Reserva equipada",{s:8,f:GR,rot:-90});
         T(x,yb+308,`${tb.tab==="TSG"?"S-":"C-"}${j+1}`,{s:9.5,b:1,a:"middle",f:GR}); T(x,yb+322,"Reserva",{s:8,a:"middle",f:GR}); continue; }
-      T(x+12,yb+92,`${q.f3?3:2}×${q.itm??"—"} A`,{s:8,b:1});
+      T(x+12,yb+92,`${q.f3?3:2}×${q.itm??"—"} A ${q.curva}`,{s:8,b:1});
       T(x-5,yb+276,`${cond(q.f3?3:2,q.S,q.St)} · ${tub(q.tubo)}`,{s:7.5,rot:-90});
       T(x+12,yb+276,`I ${fmt(q.I,1)} A · ΔV ${fmt(q.dVp,2)} %`,{s:7.5,f:GR,rot:-90});
       T(x,yb+308,q.id,{s:9.5,b:1,a:"middle",f:NAVY});
       const ls=wrap(q.desc,13); ls.forEach((t,i)=>T(x,yb+321+i*10.5,t,{s:7.8,a:"middle"}));
-      T(x,yb+321+ls.length*10.5+2,`${fmt(q.P,0)} W${q.fase&&q.fase!=="—"&&r.mode==="uni"?" · "+q.fase:""}`,{s:7.5,a:"middle",f:GR});
+      T(x,yb+321+ls.length*10.5+2,`${fmt(q.P,0)} W${r.bal&&q.fase&&q.fase!=="—"&&q.fase!=="3φ"?" · "+q.fase:""}`,{s:7.5,a:"middle",f:GR});
     }
     return {w:Math.max(xe-X+20,560),h:yb-Y+372};
   }
@@ -723,7 +788,7 @@ function render(r){
   if(r.mode==="uni") k.push(["Potencia instalada",fmt(r.CI/1000,2),"kW","Salidas y equipos"],["Máxima demanda",fmt(r.md.MD/1000,2),"kW","Regla 050-200"],["Alimentador",a0.S,"mm²",`${fmt(a0.I,1)} A · ${a0.s.txt}`],["ITM general",a0.itm??"—","A",`${a0.s.tri?3:2} polos · ${a0.pdc} kA`]);
   else k.push(["Departamentos",r.units.length,"",`${r.T.length} tipo(s)`],["Máxima demanda",fmt(r.MD/1000,2),"kW","Edificio · Regla 050-202"],["Alimentador general",a0.S,"mm²",`${fmt(a0.I,1)} A · ${a0.s.txt}`],["ITM general",a0.itm??"—","A",`${a0.s.tri?3:2} polos · ${a0.pdc} kA`]);
   k.push(["Potencia a contratar",fmt(r.contratada,1),"kW","Sugerida"],["ΔV máx. total",fmt(maxDV,2),"%",pill(maxDV<=DV_TOT,"Dentro del límite","Excede 4 %")],["Puesta a tierra",fmt(r.pat.Rt,1),"Ω",pill(r.pat.ok,"Cumple","Excede 25 Ω")]);
-  if(r.bal) k.push(["Desbalance",fmt(r.bal.desb,1),"%",pill(r.bal.desb<=10,"≤ 10 %","> 10 %")]);
+  if(r.bal) k.push(["Desbalance",fmt(r.bal.desb,1),"%",r.bal.desb<=10?pillS("ok","≤ 10 %"):pillS("warn",r.bal.desb<=r.bal.desbMin+0.05?"Mínimo posible":"Revisar reparto")]);
   let html=`<div class="kpis">${k.map(([a,b,u,n])=>`<div class="kpi"><div class="k">${a}</div><div class="v">${b}${u?`<small>${u}</small>`:""}</div><div class="n">${n}</div></div>`).join("")}</div>`;
   if(r.mode==="uni"){
     const m=r.md;
@@ -771,15 +836,49 @@ function setTab(t){
   document.querySelectorAll(".tab").forEach(b=>b.setAttribute("aria-selected",b.dataset.tab===t));
   document.querySelectorAll(".tabpanel").forEach(p=>p.hidden=p.id!=="tab-"+t);
   try{ localStorage.setItem("jmg-electric-tab",t); }catch(e){}
+  if(t==="inicio") refreshLast();
   try{ window.scrollTo({top:0}); }catch(e){}
 }
+function validar(){
+  const E=[], v=id=>parseFloat($(id).value);
+  document.querySelectorAll(".inv").forEach(e=>e.classList.remove("inv"));
+  const chk=(id,ok,msg)=>{ if(ok) return; const el=$(id); if(el) el.classList.add("inv"); E.push(msg); };
+  chk("fp",v("fp")>=0.5&&v("fp")<=1,"El factor de potencia debe estar entre 0,5 y 1.");
+  chk("iccE",v("iccE")>0,"Ingrese la corriente de cortocircuito del punto de entrega (Ajustes).");
+  chk("rho_s",v("rho_s")>0,"Ingrese la resistividad del suelo (Ajustes).");
+  chk("Lv",v("Lv")>=0.5,"Ingrese la longitud de la varilla de puesta a tierra (Ajustes).");
+  chk("maxSal",v("maxSal")>=1&&v("maxSal")<=12,"Las salidas por circuito deben estar entre 1 y 12 (Regla 070-3000).");
+  if(MODE==="uni"){
+    chk("area",v("area")>0,"Ingrese el área techada de la vivienda.");
+    chk("sot",!(v("sot")<0),"El área de sótano no puede ser negativa.");
+    chk("Lalim",v("Lalim")>0,"Ingrese la longitud del alimentador.");
+    [["al","alumbrado"],["tg","tomacorrientes generales"],["tc","tomacorrientes de cocina"]].forEach(([k,t])=>{
+      chk(k+"_n",v(k+"_n")>=0,`Ingrese la cantidad de salidas de ${t} (0 si no hay).`);
+      chk(k+"_p",v(k+"_p")>=0,`Ingrese la potencia por salida de ${t}.`);
+      if(v(k+"_n")>0) chk(k+"_L",v(k+"_L")>0,`Ingrese la longitud de los circuitos de ${t}.`); });
+    cargas.forEach((x,i)=>{ chk(`cargas_p_${i}`,x.p>=0,`Carga especial ${i+1}: la potencia no puede ser negativa.`); if(x.p>0) chk(`cargas_L_${i}`,x.L>0,`Carga especial ${i+1} (${x.nombre}): ingrese la longitud.`); });
+  } else {
+    chk("Lgen",v("Lgen")>0,"Ingrese la longitud del alimentador general.");
+    chk("Lms",v("Lms")>0,"Ingrese la longitud al tablero de servicios generales.");
+    if(!tipos.some(t=>t.cant>0)) E.push("Agregue al menos un tipo de departamento con una o más unidades.");
+    tipos.forEach((t,i)=>{ const n=t.nombre||`Tipo ${i+1}`;
+      chk(`tipos_cant_${i}`,t.cant>=0&&Number.isInteger(t.cant),`${n}: el número de unidades debe ser un entero.`);
+      if(t.cant>0){ chk(`tipos_area_${i}`,t.area>0,`${n}: ingrese el área de vivienda.`); chk(`tipos_Ld_${i}`,t.Ld>0,`${n}: ingrese la longitud del alimentador.`); chk(`tipos_Lc_${i}`,t.Lc>0,`${n}: ingrese la longitud de los circuitos.`); } });
+    serv.forEach((x,i)=>{ if(x.p>0) chk(`serv_L_${i}`,x.L>0,`Carga común ${i+1} (${x.nombre}): ingrese la longitud.`); });
+  }
+  return E;
+}
 function update(){
+  const errs=validar();
+  if(MODE==="multi"&&!tipos.some(t=>t.cant>0)){ LAST=null; $("btnXlsx").disabled=true;
+    $("results").innerHTML=`<section class="card"><h2>Revise los datos de entrada</h2><div class="body"><ul class="alerts">${errs.map(t=>`<li class="bad"><span>${esc(t)}</span></li>`).join("")}</ul></div></section>`; saveDraft(); return; }
+  $("btnXlsx").disabled=false;
   const c=ctx();
   const r=MODE==="uni"?calcUni(c):calcMulti(c); LAST=r;
   $("projline").innerHTML=`<span>Proyecto: <b>${esc(c.proj.nombre||"—")}</b></span><span>Propietario: <b>${esc(c.proj.prop||"—")}</b></span><span>Ubicación: <b>${esc(c.proj.ubic||"—")}</b></span><span>Proyectista: <b>${esc(c.proj.proy||"—")}</b></span>`;
   render(r); saveDraft();
+  if(errs.length) $("results").insertAdjacentHTML("afterbegin",`<section class="card"><h2>Revise los datos de entrada</h2><div class="body"><ul class="alerts">${errs.map(t=>`<li class="bad"><span>${esc(t)}</span></li>`).join("")}</ul></div></section>`);
 }
-
 /* ================= Exportación a Excel ================= */
 async function exportar(){
   const r=LAST, c=r.c, multi=r.mode==="multi", a0=r.alims[0];
@@ -821,7 +920,8 @@ async function exportar(){
   const nota=(ws,rw,last,txt)=>{ span(ws,rw,1,last,txt,{it:1,size:8,color:K.grey,wrap:1}); ws.getRow(rw).height=Math.max(15,Math.ceil(txt.length/120)*13); return rw+1; };
   const tot=(ws,rw,c1,c2)=>{ for(let k=c1;k<=c2;k++){ const x=ws.getCell(rw,k); x.font={...x.font,bold:true}; x.fill={type:"pattern",pattern:"solid",fgColor:{argb:K.tot}}; x.border={...BOX,top:{style:"medium",color:{argb:K.navy}}}; } };
   const okF={type:"pattern",pattern:"solid",bgColor:{argb:"FFDDF0E2"}}, badF={type:"pattern",pattern:"solid",bgColor:{argb:"FFF8D9D5"}};
-  const cfmt=(ws,ref)=>ws.addConditionalFormatting({ref,rules:[{type:"containsText",operator:"containsText",text:"REVISAR",style:{fill:badF,font:{color:{argb:"FFA3302A"},bold:true}}},{type:"containsText",operator:"containsText",text:"CONFORME",style:{fill:okF,font:{color:{argb:"FF22693F"},bold:true}}}]});
+  const obsF={type:"pattern",pattern:"solid",bgColor:{argb:"FFFBF0D9"}};
+  const cfmt=(ws,ref)=>ws.addConditionalFormatting({ref,rules:[{type:"containsText",operator:"containsText",text:"REVISAR",style:{fill:badF,font:{color:{argb:"FFA3302A"},bold:true}}},{type:"containsText",operator:"containsText",text:"CONFORME",style:{fill:okF,font:{color:{argb:"FF22693F"},bold:true}}},{type:"containsText",operator:"containsText",text:"OBSERVACIÓN",style:{fill:obsF,font:{color:{argb:"FF8A5A00"},bold:true}}}]});
 
   /* ---------- ANEXOS ---------- */
   setup(wsX,"portrait",[13,13,13,13,13,13,13,13]);
@@ -873,7 +973,7 @@ async function exportar(){
   par("met","Método de instalación",MET[c.met].split(" · ")[0]+" · Tabla 3","","CNE-U, Tabla 3",false,"@");
   par("ais","Aislamiento del conductor",c.aisl==="pvc"?"PVC 70 °C":"XLPE / EPR 90 °C","","CNE-U, Tabla 2",false,"@");
   par("fp","Factor de potencia",c.fp,"—","Cargas de vivienda",true);
-  par("rho","Resistividad del cobre",RHO_CU,"Ω·mm²/m","Cobre a 20 °C",false,"0.0000");
+  par("rho","Resistividad del cobre (caída de tensión)",c.rho,"Ω·mm²/m",c.rhoRef,false,"0.0000");
   par("ft","Factor de corrección por temperatura",c.ft,"—",`${c.temp} °C · Tabla 5A`,true);
   par("fa","Factor de corrección por agrupamiento",c.fa,"—",`${c.nag} circuito(s) por tubería · Tabla 5C`,true);
   { const rr=m; R.fc=`'Memoria'!$F$${rr}`; span(wsM,m,1,5,"Factor de corrección total en circuitos derivados",{box:1,ind:1}); cell(wsM,m,6,F(`F${rr-2}*F${rr-1}`,c.fc),{...val,fmt:"0.00"}); cell(wsM,m,7,"—",{...val,color:K.grey}); span(wsM,m,8,10,"Temperatura × agrupamiento",{box:1,size:8,color:K.grey}); m++; }
@@ -957,11 +1057,10 @@ async function exportar(){
     wsM.getCell(rS,9).value=F(`0.75*H${sT}`,r.mdServ);
     servTotRef=`'Memoria'!$H$${sT}`; servPRef=`'Memoria'!$H$${sD}`; m++;
   }
-
-  /* ---------- CÁLCULOS ---------- */
+    /* ---------- CÁLCULOS ---------- */
   const LC=20; setup(wsC,"landscape",[8,7,30,7,9,7,6,8,8,7,8,9,7,7,8,12,7,17,7,9]);
   let k=cabecera(wsC,LC,"CÁLCULO DE ALIMENTADORES, CIRCUITOS DERIVADOS, BALANCE DE FASES Y CORTOCIRCUITO","Hoja 2 de 4");
-  const HDR=(first)=>[[1,first?3:1,first?"Alimentador":"Tablero"],...(first?[]:[[2,2,"Nº"],[3,3,"Descripción"]]),[4,4,first?"Cant.":"Salidas"],[5,5,"Potencia (W)"],[6,6,first?"Fases":"Fases · fase"],[7,7,"Tensión (V)"],[8,8,"I nominal (A)"],[9,9,"I diseño (A)"],[10,10,"ITM (A)"],[11,11,"Sección (mm²)"],[12,12,"Iz corregida (A)"],[13,13,"Longitud (m)"],[14,14,"ΔV (%)"],[15,15,first?"ΔV acum. (%)":"ΔV total (%)"],[16,16,"Verificación"],[17,17,"Tierra (mm²)"],[18,18,first?"Conductores":"Diferencial 30 mA"],[19,19,"PdC (kA)"],[20,20,"Tubo PVC"]];
+  const HDR=(first)=>[[1,first?3:1,first?"Alimentador":"Tablero"],...(first?[]:[[2,2,"Nº"],[3,3,"Descripción"]]),[4,4,first?"Cant.":"Salidas"],[5,5,"Potencia (W)"],[6,6,first?"Fases":"Fases · fase"],[7,7,"Tensión (V)"],[8,8,"I nominal (A)"],[9,9,"I diseño (A)"],[10,10,first?"ITM (A)":"ITM (A · curva)"],[11,11,"Sección (mm²)"],[12,12,"Iz corregida (A)"],[13,13,"Longitud (m)"],[14,14,"ΔV (%)"],[15,15,first?"ΔV acum. (%)":"ΔV total (%)"],[16,16,"Verificación"],[17,17,"Tierra (mm²)"],[18,18,first?"Conductores":"Diferencial 30 mA"],[19,19,"PdC (kA)"],[20,20,"Tubo PVC"]];
   const fI=rw=>`E${rw}/(IF(LEFT(F${rw},2)="3φ",SQRT(3),1)*G${rw}*${R.fp})`;
   const fIz=(rw,col,fac)=>`INDEX(${AMPR},MATCH(K${rw},${SECR},0),${col+1})*${fac}`;
   const fDV=rw=>`IF(LEFT(F${rw},2)="3φ",SQRT(3),2)*${R.rho}*M${rw}*H${rw}/K${rw}/G${rw}*100`;
@@ -976,7 +1075,7 @@ async function exportar(){
     cell(wsC,k,10,a.itm,{...inp,fmt:"0"}); cell(wsC,k,11,a.S,{...inp,fmt:"0.0"}); cell(wsC,k,12,F(fIz(k,a.col,R.ft),a.Izc),{...val,fmt:"0.0"});
     cell(wsC,k,13,a.L,{...inp,fmt:"0.0"}); cell(wsC,k,14,F(fDV(k),a.dVp),{...val,fmt:"0.00"}); cell(wsC,k,15,F(i===0?`N${k}`:`N${k}+$O$${genRow}`,a.dvAc),{...val,fmt:"0.00",bold:1});
     cell(wsC,k,16,F(`IF(AND(I${k}<=J${k},J${k}<=L${k},O${k}<=${R.dvA}),"CONFORME","REVISAR")`,a.ok?"CONFORME":"REVISAR"),{...val,bold:1,size:8});
-    cell(wsC,k,17,a.St,{...val,fmt:"0.0"}); cell(wsC,k,18,`${a.s.n}-1×${a.S} + 1×${a.St}(T)`,{...val,size:8}); cell(wsC,k,19,a.pdc,{...val,fmt:"0.0"}); cell(wsC,k,20,a.tubo.mm?`${a.tubo.mm} mm`:a.tubo.pul,{...val,size:8});
+    cell(wsC,k,17,a.St,{...val,fmt:"0.0"}); cell(wsC,k,18,`${a.s.n}-1×${a.S} + 1×${a.St}(T)${c.desig?" "+c.desig:""}`,{...val,size:8,wrap:1}); cell(wsC,k,19,a.pdc,{...val,fmt:"0.0"}); cell(wsC,k,20,a.tubo.mm?`${a.tubo.mm} mm`:a.tubo.pul,{...val,size:8});
     a._row=k; k++; });
   k=nota(wsC,k,LC,`Verificación: corriente de diseño ≤ ITM ≤ ampacidad corregida por temperatura, y caída de tensión acumulada ≤ 2,5 %. Corriente de diseño no menor que la mínima del código (${multi?"25 A por departamento, Regla 050-202(1)(b)":"40 A, Regla 050-200(1)(b)"}). Celdas en azul: valores seleccionados, modificables.`)+1;
   k=seccion(wsC,k,LC,"2.  CUADRO DE CARGAS · CIRCUITOS DERIVADOS");
@@ -986,10 +1085,10 @@ async function exportar(){
     const f=r.alims[tb.feeder]; span(wsC,k,1,LC,`TABLERO ${tb.tab}  ·  ${tb.desc}  ·  alimentado por: ${f.desc}  ·  Icc ≈ ${fmt(tb.icc,2)} kA`,{bold:1,size:8.5,color:K.navy,fill:K.soft,box:1,ind:1}); k++;
     const t0=k, cs=r.circ.filter(q=>q.tab===tb.tab);
     cs.forEach(q=>{
-      cell(wsC,k,1,tb.tab,{...val,size:8}); cell(wsC,k,2,q.id,{...val,bold:1}); cell(wsC,k,3,q.desc,{box:1,ind:1,size:8.5}); cell(wsC,k,4,q.n,{...val,fmt:"0"});
-      cell(wsC,k,5,q.P,{...inp,fmt:"#,##0"}); cell(wsC,k,6,q.f3?"3φ":(r.mode==="uni"&&r.bal?`1φ · ${q.fase}`:"1φ"),{...val,size:8}); cell(wsC,k,7,q.s.V,val);
+      cell(wsC,k,1,tb.tab,{...val,size:8}); cell(wsC,k,2,q.id,{...val,bold:1}); cell(wsC,k,3,q.motor?`${q.desc} (motor)`:q.desc,{box:1,ind:1,size:8.5}); cell(wsC,k,4,q.n,{...val,fmt:"0"});
+      cell(wsC,k,5,q.P,{...inp,fmt:"#,##0"}); cell(wsC,k,6,q.f3?"3φ":(r.bal&&q.fase&&q.fase!=="—"?`1φ · ${q.fase}`:"1φ"),{...val,size:8}); cell(wsC,k,7,q.s.V,val);
       cell(wsC,k,8,F(fI(k),q.I),{...val,fmt:"0.00"}); cell(wsC,k,9,F(`H${k}*${R.fd}`,q.Id),{...val,fmt:"0.00"});
-      cell(wsC,k,10,q.itm,{...inp,fmt:"0"}); cell(wsC,k,11,q.S,{...inp,fmt:"0.0"}); cell(wsC,k,12,F(fIz(k,q.col,R.fc),q.Izc),{...val,fmt:"0.0"});
+      cell(wsC,k,10,q.itm,{...inp,fmt:`0" · ${q.curva}"`}); cell(wsC,k,11,q.S,{...inp,fmt:"0.0"}); cell(wsC,k,12,F(fIz(k,q.col,R.fc),q.Izc),{...val,fmt:"0.0"});
       cell(wsC,k,13,q.L,{...inp,fmt:"0.0"}); cell(wsC,k,14,F(fDV(k),q.dVp),{...val,fmt:"0.00"}); cell(wsC,k,15,F(`N${k}+$O$${f._row}`,q.dVt),{...val,fmt:"0.00",bold:1});
       cell(wsC,k,16,F(`IF(AND(I${k}<=J${k},J${k}<=L${k},N${k}<=${R.dvD},O${k}<=${R.dvT}),"CONFORME","REVISAR")`,q.ok?"CONFORME":"REVISAR"),{...val,bold:1,size:8});
       cell(wsC,k,17,q.St,{...val,fmt:"0.0"}); cell(wsC,k,18,`${q.idName} · ${q.f3?4:2}×${q.idRat} A`,{...val,size:8}); cell(wsC,k,19,tb.pdc,{...val,fmt:"0.0"}); cell(wsC,k,20,q.tubo.mm?`${q.tubo.mm} mm`:q.tubo.pul,{...val,size:8});
@@ -1006,12 +1105,13 @@ async function exportar(){
   if(r.bal){
     k=seccion(wsC,k,LC,"3.  BALANCE DE CARGAS POR FASE");
     k=thead(wsC,k,[[1,2,"Fase"],[3,3,"Cargas asignadas"],[4,5,"Potencia (W)"],[6,7,"Participación"]]);
-    const b0=k, items=r.mode==="uni"?r.circ:r.bal.items;
-    r.bal.nm.forEach((nm,i)=>{ const its=items.filter(q=>q.fase===nm).map(q=>r.mode==="uni"?q.id:q.ref);
+    const b0=k, items=r.bal.items;
+    r.bal.nm.forEach((nm,i)=>{ const its=items.filter(q=>q.fase===nm).map(q=>(q.ref||q.id)+(q.fijo?" (fijada)":""));
       span(wsC,k,1,2,nm,{...val,bold:1}); cell(wsC,k,3,(its.join(", ")||"—")+(items.some(q=>q.fase==="3φ")?" · más 1/3 de cargas trifásicas":""),{box:1,wrap:1,size:8}); span(wsC,k,4,5,r.bal.ph[i],{...val,fmt:"#,##0"}); span(wsC,k,6,7,F(`D${k}/SUM($D$${b0}:$D$${b0+2})`,r.bal.ph[i]/(r.bal.ph.reduce((s,v)=>s+v,0)||1)),{...val,fmt:"0.0%"}); wsC.getRow(k).height=Math.max(18,Math.ceil(its.join(", ").length/45)*12); k++; });
     span(wsC,k,1,3,"Desbalance = (fase más cargada − promedio) / promedio",{box:1,ind:1}); span(wsC,k,4,5,F(`(MAX(D${b0}:D${b0+2})-AVERAGE(D${b0}:D${b0+2}))/AVERAGE(D${b0}:D${b0+2})`,r.bal.desb/100),{...val,fmt:"0.0%",bold:1});
-    span(wsC,k,6,7,F(`IF(D${k}<=0.1,"CONFORME","REVISAR")`,r.bal.desb<=10?"CONFORME":"REVISAR"),{...val,bold:1,size:8}); cfmt(wsC,`F${k}:G${k}`); tot(wsC,k,1,7); balRow=k; k++;
-    k=nota(wsC,k,LC,"Cargas monofásicas asignadas a la fase menos cargada, en orden decreciente de potencia. Criterio de diseño: desbalance no mayor de 10 %.")+1;
+    span(wsC,k,6,7,F(`IF(D${k}<=0.1,"CONFORME","OBSERVACIÓN")`,r.bal.desb<=10?"CONFORME":"OBSERVACIÓN"),{...val,bold:1,size:8}); cfmt(wsC,`F${k}:G${k}`); tot(wsC,k,1,7); balRow=k; k++;
+    span(wsC,k,1,3,"Desbalance mínimo alcanzable con estas cargas",{box:1,ind:1}); span(wsC,k,4,5,r.bal.desbMin/100,{...val,fmt:"0.0%"}); span(wsC,k,6,7,"",{box:1}); k++;
+    k=nota(wsC,k,LC,`Reparto de cargas monofásicas con el menor desbalance posible${r.bal.nFix?`; ${r.bal.nFix} carga(s) con fase fijada por el proyectista`:""}. Criterio de diseño: desbalance no mayor de 10 %. ${r.bal.desb>10?sugerencia(r):""}`)+1;
   }
   k=seccion(wsC,k,LC,`${r.bal?"4":"3"}.  CORRIENTE DE CORTOCIRCUITO Y PODER DE CORTE`);
   k=thead(wsC,k,[[1,3,"Punto de la instalación"],[4,5,"Sistema"],[6,7,"Icc estimada (kA)"],[8,9,"PdC mínimo (kA)"],[10,13,"Dispositivos"]]);
@@ -1034,7 +1134,7 @@ async function exportar(){
   rs("Tipo de conexión",multi?"En derivación":"Conexión simple",multi?"Banco de medidores · DGE 301.C":"Norma DGE, 301.A","@");
   rs(`Corriente nominal del alimentador ${multi?"general":"principal"}`,F(`${C2}H${genRow}`,a0.I),"A","0.00");
   rs("Interruptor termomagnético general",F(`"${a0.s.tri?3:2}×"&${C2}J${genRow}&" A · ${a0.pdc} kA"`,`${a0.s.tri?3:2}×${a0.itm} A · ${a0.pdc} kA`),"","@");
-  rs(`Conductor del alimentador ${multi?"general":"principal"}`,F(`"${a0.s.n}-1×"&${C2}K${genRow}&" mm² Cu"`,`${a0.s.n}-1×${a0.S} mm² Cu`),"","@");
+  rs(`Conductor del alimentador ${multi?"general":"principal"}`,F(`"${a0.s.n}-1×"&${C2}K${genRow}&" mm² Cu${c.desig?" "+c.desig:""}"`,`${a0.s.n}-1×${a0.S} mm² Cu${c.desig?" "+c.desig:""}`),"","@");
   rs("Caída de tensión máxima total",F(`MAX(${C2}O${cStart}:O${cEnd})`,Math.max(...r.circ.map(q=>q.dVt))),"% · límite 4 %","0.00");
   rs("Circuitos derivados",F(`COUNTIF(${C2}P${cStart}:P${cEnd},"CONFORME")+COUNTIF(${C2}P${cStart}:P${cEnd},"REVISAR")`,r.circ.length),`+ ${c.reserva} de reserva por tablero`,"0");
   if(r.bal) rs("Desbalance de cargas entre fases",F(`${C2}D${balRow}`,r.bal.desb/100),"criterio ≤ 10 %","0.0%");
@@ -1058,14 +1158,14 @@ async function exportar(){
   cfmt(wsM,`E${m-1}:F${m-1}`);
   m++;
   m=seccion(wsM,m,LM,"5.  VERIFICACIONES NORMATIVAS");
-  alertas(r).forEach(([ok,ref,t])=>{ span(wsM,m,1,2,ref,{bold:1,size:8,color:K.navy,fill:K.lab,box:1,wrap:1}); span(wsM,m,3,9,t,{box:1,wrap:1,size:8.5}); cell(wsM,m,10,ok?"CONFORME":"REVISAR",{...val,bold:1,size:8}); wsM.getRow(m).height=Math.max(20,Math.ceil(t.length/95)*12); m++; });
+  alertas(r).forEach(([ok,ref,t])=>{ span(wsM,m,1,2,ref,{bold:1,size:8,color:K.navy,fill:K.lab,box:1,wrap:1}); span(wsM,m,3,9,t,{box:1,wrap:1,size:8.5}); cell(wsM,m,10,ok===true?"CONFORME":ok==="warn"?"OBSERVACIÓN":"REVISAR",{...val,bold:1,size:8}); wsM.getRow(m).height=Math.max(20,Math.ceil(t.length/95)*12); m++; });
   cfmt(wsM,`J${m-alertas(r).length}:J${m-1}`);
   m++;
   m=seccion(wsM,m,LM,"6.  CONFORMIDAD");
   const firma=(c1,c2,tit,nombre)=>{ span(wsM,m,c1,c2,tit,{bold:1,size:8.5,color:K.navy,fill:K.lab,box:1,h:"center"});
     [["Nombre",nombre],["CIP N°",""],["Firma y sello",""]].forEach(([l,v],i)=>{ const rw=m+1+i; cell(wsM,rw,c1,l,{size:8,color:K.grey,box:1,fill:K.lab}); span(wsM,rw,c1+1,c2,v,{box:1}); wsM.getRow(rw).height=i===2?42:18; }); };
   firma(1,5,"ELABORADO POR",c.proj.proy||""); firma(6,10,"REVISADO Y APROBADO POR",""); m+=5;
-  nota(wsM,m,LM,"Memoria generada con JMG - ELECTRIC. Resultados de referencia: la responsabilidad del diseño corresponde al ingeniero colegiado que suscribe el expediente (RNE EM.010, Art. 8).");
+  nota(wsM,m,LM,`Memoria generada con JMG - ELECTRIC ${VERSION}. Resultados de referencia: la responsabilidad del diseño corresponde al ingeniero colegiado que suscribe el expediente (RNE EM.010, Art. 8).`);
 
   /* ---------- UNIFILAR ---------- */
   { const LU=20, u=unifilar(r); setup(wsU,"landscape",[12,12,...Array(LU-2).fill(6.5)]);
@@ -1101,6 +1201,12 @@ btn.addEventListener("click",async()=>{
   finally{ btn.disabled=false; }
 });
 
+$("results").addEventListener("change",e=>{
+  const sel=e.target.closest("select[data-fase]"); if(!sel) return;
+  const fx=FIX[MODE]; if(sel.value) fx[sel.dataset.fase]=sel.value; else delete fx[sel.dataset.fase];
+  update();
+});
+$("results").addEventListener("click",e=>{ if(e.target.closest("[data-balreset]")){ FIX[MODE]={}; update(); } });
 $("results").addEventListener("click",async e=>{
   const b=e.target.closest("[data-dl]"); if(!b||!LAST) return;
   const nm=(LAST.c.proj.nombre||"proyecto").replace(/[^\wáéíóúñÁÉÍÓÚÑ .-]/g,"").trim().slice(0,60)||"proyecto";
@@ -1135,18 +1241,57 @@ $("normsList").innerHTML=NORMAS.map(([cod,tit,desc,uso])=>`<article class="norm"
 $("critList").innerHTML=CRITERIOS.map(t=>`<li>${t}</li>`).join("");
 $("docList").innerHTML=DOCS.map(t=>`<li>${t}</li>`).join("");
 
-/* ================= Borrador local ================= */
-const KEYS=["p_nombre","p_prop","p_ubic","p_proy","fp","maxSal","pAl","pTo","reserva","met","aisl","temp","nag","sminD","sminA","idMode","iccE","dvGen","area","sot","Lalim","al_n","al_p","al_L","tg_n","tg_p","tg_L","tc_n","tc_p","tc_L","Lgen","Lms","rho_s","fr","Lv","dv"];
-const SKEY="jmg-electric-v1";
-function saveDraft(){ try{ const o={MODE,cargas,tipos,serv,sist:radio("sist"),sistG:radio("sistG")}; KEYS.forEach(k=>o[k]=$(k).value); localStorage.setItem(SKEY,JSON.stringify(o)); }catch(e){} }
-function loadDraft(){ let o=null; try{ o=JSON.parse(localStorage.getItem(SKEY)||"null"); }catch(e){} return o; }
-const draft=loadDraft();
-renderSys("sys_uni","sist",draft?.sist||"mono220"); renderSys("sys_multi","sistG",draft?.sistG||"tri380");
-if(draft){
-  KEYS.forEach(k=>{ if(draft[k]!=null) $(k).value=draft[k]; });
-  [["cargas",cargas],["tipos",tipos],["serv",serv]].forEach(([k,a])=>{ if(Array.isArray(draft[k])){ a.length=0; a.push(...draft[k]); } });
-  if(draft.MODE==="multi"||draft.MODE==="uni") MODE=draft.MODE;
+/* ================= Proyectos y borrador local ================= */
+const KEYS=["p_nombre","p_prop","p_ubic","p_proy","fp","maxSal","pAl","pTo","reserva","met","aisl","temp","nag","sminD","sminA","rhoMode","desig","idMode","iccE","dvGen","area","sot","Lalim","al_n","al_p","al_L","tg_n","tg_p","tg_L","tc_n","tc_p","tc_L","Lgen","Lms","rho_s","fr","Lv","dv"];
+const SKEY="jmg-electric-v1", DEFV={}; KEYS.forEach(k=>DEFV[k]=$(k).value);
+const clon=o=>JSON.parse(JSON.stringify(o));
+function estado(){ const o={app:"JMG-ELECTRIC",version:VERSION,savedAt:new Date().toISOString(),MODE,cargas,tipos,serv,FIX,sist:radio("sist"),sistG:radio("sistG")}; KEYS.forEach(k=>o[k]=$(k).value); return o; }
+function saveDraft(){ try{ localStorage.setItem(SKEY,JSON.stringify(estado())); }catch(e){} }
+function loadDraft(){ let o=null; try{ o=JSON.parse(localStorage.getItem(SKEY)||"null"); }catch(e){} return o&&typeof o==="object"?o:null; }
+function limpiarLista(a,plantilla){ return Array.isArray(a)?a.filter(x=>x&&typeof x==="object").map(x=>{ const y={...plantilla};
+  Object.keys(plantilla).forEach(k=>{ if(x[k]==null) return; y[k]=typeof plantilla[k]==="number"?(parseFloat(x[k])||0):String(x[k]).replace(/[<>]/g,"").slice(0,120); }); return y; }):null; }
+function aplicar(o){
+  KEYS.forEach(k=>{ if(o[k]!=null&&$(k)) $(k).value=String(o[k]).replace(/[<>]/g,""); });
+  [["cargas",cargas],["tipos",tipos],["serv",serv]].forEach(([k,a])=>{ const L=limpiarLista(o[k],LISTS[k].nuevo()); if(L){ a.length=0; a.push(...L); } });
+  const fx=o.FIX&&typeof o.FIX==="object"?o.FIX:{}, ok=v=>v&&typeof v==="object"?Object.fromEntries(Object.entries(v).filter(([,x])=>typeof x==="string")):{};
+  FIX={uni:ok(fx.uni),multi:ok(fx.multi)};
+  const sv=v=>["mono220","tri220","tri380"].includes(v)?v:null;
+  renderSys("sys_uni","sist",sv(o.sist)||"mono220"); renderSys("sys_multi","sistG",sv(o.sistG)||"tri380");
+  Object.keys(LISTS).forEach(renderList);
+  setMode(o.MODE==="multi"?"multi":"uni");
 }
+function nuevoProyecto(m){
+  aplicar({...DEFV,MODE:m,cargas:clon(DEF.cargas),tipos:clon(DEF.tipos),serv:clon(DEF.serv),FIX:null,sist:"mono220",sistG:"tri380"});
+  setTab("calculo"); try{ $("p_nombre").focus(); }catch(e){}
+}
+function refreshLast(){
+  const o=loadDraft(), box=$("lastBox");
+  if(!o||!o.p_nombre){ box.hidden=true; return; }
+  box.hidden=false;
+  const f=o.savedAt?new Date(o.savedAt).toLocaleDateString("es-PE",{day:"2-digit",month:"short",year:"numeric"}):"";
+  $("lastTxt").textContent=`${o.p_nombre} · ${o.MODE==="multi"?"Multifamiliar":"Unifamiliar"}${f?" · "+f:""}`;
+}
+$("btnSave").addEventListener("click",async()=>{
+  const nm=($("p_nombre").value||"proyecto").replace(/[^\wáéíóúñÁÉÍÓÚÑ .-]/g,"").trim().slice(0,60)||"proyecto";
+  const nombre=`JMG-ELECTRIC - ${nm}.json`, blob=new Blob([JSON.stringify(estado(),null,1)],{type:"application/json"});
+  try{ if(downloads) await downloads.save({filename:nombre,data:blob}); else descargarLocal(blob,nombre); msg.textContent="Proyecto guardado."; }
+  catch(e){ msg.textContent=e&&e.code==="declined"?"Guardado cancelado.":"No se pudo guardar el proyecto."; }
+});
+document.querySelectorAll("[data-open]").forEach(b=>b.addEventListener("click",()=>{ $("fileOpen").value=""; $("fileOpen").click(); }));
+$("fileOpen").addEventListener("change",()=>{
+  const f=$("fileOpen").files[0]; if(!f) return;
+  const rd=new FileReader();
+  rd.onload=()=>{ let o=null; try{ o=JSON.parse(rd.result); }catch(e){}
+    if(!o||o.app!=="JMG-ELECTRIC"){ $("openMsg").textContent="El archivo no es un proyecto de JMG - ELECTRIC."; setTab("inicio"); return; }
+    aplicar(o); $("openMsg").textContent=""; msg.textContent=`Proyecto «${o.p_nombre||"sin nombre"}» abierto.`; setTab("calculo"); };
+  rd.readAsText(f);
+});
+document.querySelectorAll("[data-new]").forEach(b=>b.addEventListener("click",()=>nuevoProyecto(b.dataset.new)));
+$("ver").textContent=VERSION;
+
+const draft=loadDraft();
+if(draft&&draft.p_nombre==="Vivienda unifamiliar — Urb. Los Álamos"){ draft.p_nombre=""; if(draft.p_prop==="—") draft.p_prop=""; if(draft.p_ubic==="Arequipa, Perú") draft.p_ubic=""; }
+renderSys("sys_uni","sist","mono220"); renderSys("sys_multi","sistG","tri380");
 Object.keys(LISTS).forEach(renderList);
 
 function resetUI(confirmar){
@@ -1164,7 +1309,8 @@ document.querySelectorAll("[data-go]").forEach(b=>b.addEventListener("click",()=
 document.querySelectorAll(".opt .btn").forEach(b=>b.addEventListener("click",()=>{ setMode(b.dataset.mode); setTab("calculo"); }));
 document.querySelectorAll("[data-calc]").forEach(el=>{ el.addEventListener("input",update); el.addEventListener("change",update); });
 let tab0="inicio"; try{ tab0=localStorage.getItem("jmg-electric-tab")||"inicio"; }catch(e){}
-setMode(MODE); setTab(["inicio","tipo","calculo","normas","ajustes"].includes(tab0)?tab0:"inicio");
+if(draft) aplicar(draft); else setMode(MODE);
+refreshLast(); setTab(["inicio","tipo","calculo","normas","ajustes"].includes(tab0)?tab0:"inicio");
 </script>
 </body>
 </html>
