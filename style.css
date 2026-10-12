@@ -263,3 +263,7 @@ tr.fix td{background:#eef3f9!important}
 .tool .body{display:flex;flex-direction:column;gap:10px}
 .tool dl.spec{border-top:1px solid var(--line2);padding-top:10px;margin-top:4px}
 .tool dl.spec dd{white-space:normal}
+/* Resultados fijos al desplazarse (pantallas anchas) */
+@media (min-width:961px){
+  .grid>.results{position:sticky;top:12px;max-height:calc(100vh - 24px);overflow-y:auto;scrollbar-width:thin;padding-right:2px}
+}

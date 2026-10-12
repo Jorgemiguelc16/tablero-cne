@@ -891,8 +891,7 @@ function render(r){
   if(r.bal) k.push(["Desbalance",fmt(r.bal.desb,1),"%",r.bal.desb<=10?pillS("ok","≤ 10 %"):pillS("warn",r.bal.desb<=r.bal.desbMin+0.05?"Mínimo posible":"Revisar reparto")]);
   let html=`<div class="kpis">${k.map(([a,b,u,n])=>`<div class="kpi"><div class="k">${a}</div><div class="v">${b}${u?`<small>${u}</small>`:""}</div><div class="n">${n}</div></div>`).join("")}</div>`;
   const S={}, A=alertas(r);
-  S.resumen=()=>`<div class="two">${cardSuministro(r,"")}${cardPozo(r,"")}</div>`;
-  S.demanda=()=>{ let html="";
+  S.resumen=()=>`<div class="two">${cardSuministro(r,"")}${cardPozo(r,"")}</div>${cardAlertas(r,"")}`;  S.demanda=()=>{ let html="";
     if(r.mode==="uni"){ const m=r.md;
       html+=`<section class="card"><h2><span><span class="num"></span>Máxima demanda de la vivienda</span><span class="ref">050-110 · 050-200</span></h2><div class="tbl-wrap"><table>
       <thead><tr><th class="t">Concepto</th><th class="t">Criterio</th><th>Instalada (W)</th><th>Demanda (W)</th></tr></thead><tbody>
