@@ -246,3 +246,4 @@ input.inv,select.inv{border-color:var(--bad);background:#fff6f5}
 .balmsg.warn{background:#fbf0d9;border-color:#ecd39a}
 select.fsel{width:auto;min-width:140px;padding:4px 6px;font-size:12px;font-family:var(--f-body)}
 tr.fix td{background:#eef3f9!important}
+.avatar.foto{width:72px;height:72px;object-fit:cover;border:2px solid var(--navy);padding:0;background:var(--padel2)}
