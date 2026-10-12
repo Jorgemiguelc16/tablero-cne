@@ -311,3 +311,5 @@ dl.gloss dd{margin:0}
 .changes li{display:grid;grid-template-columns:44px 1fr;gap:10px}
 .changes b{font-family:var(--f-mono);color:var(--accent)}
 textarea{font:inherit;font-size:13px;color:var(--ink);background:#fff;border:1px solid var(--line);border-radius:0;padding:8px;width:100%;resize:vertical}
+/* v1.4.1 aviso normativo */
+.aviso-norma{margin:14px 0 0;padding:9px 12px;font-size:12px;line-height:1.5;color:var(--muted);background:var(--panel2);border-left:3px solid var(--navy)}

@@ -994,6 +994,7 @@ function render(r){
   if(!S[VIEW]) VIEW="resumen";
   html+=`<nav class="vtabs" role="tablist" aria-label="Resultados">${VORDEN.filter(k=>S[k]).map(k=>`<button type="button" role="tab" class="vtab${st[k]?" "+st[k]:""}" data-view="${k}" aria-selected="${k===VIEW}">${VLBL[k]}</button>`).join("")}</nav>`;
   html+=`<div class="vpanel">${S[VIEW]()}</div>`;
+    html+=`<p class="aviso-norma">Cálculos conforme al CNE-Utilización, RNE EM.010 y Normas DGE vigentes. Como en todo proyecto eléctrico, los resultados deben ser verificados por el profesional responsable antes de su ejecución.</p>`;
   $("results").innerHTML=html;
 }
 function setMode(m){
@@ -1347,8 +1348,7 @@ async function exportar(){
   const firma=(c1,c2,tit,nombre)=>{ span(wsM,m,c1,c2,tit,{bold:1,size:8.5,color:K.navy,fill:K.lab,box:1,h:"center"});
     [["Nombre",nombre],["CIP N°",""],["Firma y sello",""]].forEach(([l,v],i)=>{ const rw=m+1+i; cell(wsM,rw,c1,l,{size:8,color:K.grey,box:1,fill:K.lab}); span(wsM,rw,c1+1,c2,v,{box:1}); wsM.getRow(rw).height=i===2?42:18; }); };
   firma(1,5,"ELABORADO POR",c.proj.proy||""); firma(6,10,"REVISADO Y APROBADO POR",""); m+=5;
-  nota(wsM,m,LM,`Memoria generada con JMG - ELECTRIC ${VERSION}. Resultados de referencia: la responsabilidad del diseño corresponde al ingeniero colegiado que suscribe el expediente (RNE EM.010, Art. 8).`);
-
+  nota(wsM,m,LM,`La presente memoria ha sido elaborada con JMG - ELECTRIC ${VERSION}, aplicando los criterios del Código Nacional de Electricidad – Utilización, el RNE EM.010 y las Normas DGE. Los valores obtenidos constituyen una herramienta de apoyo al diseño; su validación, adecuación a las condiciones reales de obra y firma corresponden al ingeniero proyectista responsable.`);
   /* ---------- UNIFILAR ---------- */
   { const LU=20, u=unifilar(r); setup(wsU,"landscape",[12,12,...Array(LU-2).fill(6.5)]);
     let q=cabecera(wsU,LU,"DIAGRAMA UNIFILAR · ESQUEMA DE DISTRIBUCIÓN Y PROTECCIÓN","Hoja 3 de 5");
@@ -1569,7 +1569,7 @@ $("fileOpen").addEventListener("change",()=>{
   rd.readAsText(f);
 });
 document.querySelectorAll("[data-new]").forEach(b=>b.addEventListener("click",()=>nuevoProyecto(b.dataset.new)));
-$("ver").textContent=VERSION; $("verBadge").textContent=VERSION;
+$("ver").textContent=VERSION; $("verBadge").textContent=VERSION+" · Beta";
 
 const draft=loadDraft();
 if(draft&&draft.p_nombre==="Vivienda unifamiliar — Urb. Los Álamos"){ draft.p_nombre=""; if(draft.p_prop==="—") draft.p_prop=""; if(draft.p_ubic==="Arequipa, Perú") draft.p_ubic=""; }
